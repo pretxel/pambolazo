@@ -160,15 +160,6 @@ class HomeController extends BaseController {
 	}
 
 
-	private function validaCampos($campo){
-		if ($campo == ""){
-			return "0";
-		}else{
-			return $campo;
-		}
-	}
-
-
 	public function gracias($token=0) {
 			
 			return View::make('gracias')->with('token',$token);
