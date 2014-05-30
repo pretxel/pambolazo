@@ -45,39 +45,39 @@ class HomeController extends BaseController {
 
 	public function savePronosticos(){
 
-		$brasil = Input::get('brasil');
-		$mexico = Input::get('mexico');
-		$camerun = Input::get('camerun');
-		$croacia = Input::get('croacia');
-		$españa = Input::get('españa');
-		$holanda = Input::get('holanda');
-		$chile = Input::get('chile');
-		$australia = Input::get('australia');
-		$colombia = Input::get('colombia');
-		$grecia = Input::get('grecia');
-		$costaMarfil = Input::get('costaMarfil');
-		$japon = Input::get('japon');
-		$uruguay = Input::get('uruguay');
-		$costaRica = Input::get('costaRica');
-		$inglaterra = Input::get('inglaterra');
-		$italia = Input::get('italia');
-		$suiza = Input::get('suiza');
-		$ecuador = Input::get('ecuador');
-		$francia = Input::get('francia');
-		$honduras = Input::get('honduras');
-		$argentina = Input::get('argentina');
-		$bosnia = Input::get('bosnia');
-		$iran = Input::get('iran');
-		$nigeria = Input::get('nigeria');
-		$alemania = Input::get('alemania');
-		$portugal = Input::get('portugal');
-		$usa = Input::get('usa');
-		$ghana = Input::get('ghana');
-		$belgica = Input::get('belgica');
-		$rusia = Input::get('rusia');
-		$corea = Input::get('corea');
-		$argelia = Input::get('argelia');
-		$nombre = Input::get('nombre');
+		$brasil = (empty(Input::get('brasil'))) ? '0' : Input::get('brasil');
+		$mexico = (empty(Input::get('mexico'))) ? '0': Input::get('mexico');
+		$camerun = (empty(Input::get('camerun'))) ? '0' : Input::get('camerun') ;
+		$croacia = (empty(Input::get('croacia'))) ? '0' : Input::get('croacia');
+		$españa = (empty(Input::get('españa'))) ? '0' : Input::get('españa');
+		$holanda = (empty(Input::get('holanda'))) ? '0' : Input::get('holanda');
+		$chile = (empty(Input::get('chile'))) ? '0' : Input::get('chile');
+		$australia = (empty(Input::get('australia'))) ? '0' : Input::get('australia');
+		$colombia = (empty(Input::get('colombia'))) ? '0' : Input::get('colombia');
+		$grecia = (empty(Input::get('grecia'))) ? '0' : Input::get('grecia');
+		$costaMarfil = (empty(Input::get('costaMarfil'))) ? '0' : Input::get('costaMarfil');
+		$japon = (empty(Input::get('japon'))) ? '0' : Input::get('japon');
+		$uruguay = (empty(Input::get('uruguay'))) ? '0' : Input::get('uruguay');
+		$costaRica = (empty(Input::get('costaRica'))) ? '0' : Input::get('costaRica');
+		$inglaterra = (empty(Input::get('inglaterra'))) ? '0' : Input::get('inglaterra');
+		$italia = (empty(Input::get('italia'))) ? '0' : Input::get('italia');
+		$suiza = (empty(Input::get('suiza'))) ? '0' : Input::get('suiza');
+		$ecuador = (empty(Input::get('ecuador'))) ? '0' : Input::get('ecuador');
+		$francia = (empty(Input::get('francia'))) ? '0' : Input::get('francia');
+		$honduras = (empty(Input::get('honduras'))) ? '0' : Input::get('honduras');
+		$argentina = (empty(Input::get('argentina'))) ? '0' : Input::get('argentina');
+		$bosnia = (empty(Input::get('bosnia'))) ? '0' : Input::get('bosnia');
+		$iran = (empty(Input::get('iran'))) ? '0' : Input::get('iran');
+		$nigeria = (empty(Input::get('nigeria'))) ? '0' : Input::get('nigeria');
+		$alemania = (empty(Input::get('alemania'))) ? '0' : Input::get('alemania');
+		$portugal = (empty(Input::get('portugal'))) ? '0' : Input::get('portugal');
+		$usa = (empty(Input::get('usa'))) ? '0' : Input::get('usa');
+		$ghana = (empty(Input::get('ghana'))) ? '0' : Input::get('ghana');
+		$belgica = (empty(Input::get('belgica'))) ? '0' : Input::get('belgica');
+		$rusia = (empty(Input::get('rusia'))) ? '0' : Input::get('rusia');
+		$corea = (empty(Input::get('corea'))) ? '0' : Input::get('corea');
+		$argelia = (empty(Input::get('argelia'))) ? '0' : Input::get('argelia');
+		$nombre = (empty(Input::get('nombre'))) ? '0' : Input::get('nombre');
 	
 		$email = Input::get('email');
 
@@ -157,6 +157,15 @@ class HomeController extends BaseController {
 		return View::make('gracias')->with('token',$token);
 		// return Redirect::to('gracias/'.$token);
 
+	}
+
+
+	private function validaCampos($campo){
+		if ($campo == ""){
+			return "0";
+		}else{
+			return $campo;
+		}
 	}
 
 
