@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)http://es.fifa.com/worldcup/groups/index.html -->
 <html class="js no-touch no-featurephone" lang="es" xml:lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,16 +12,7 @@
     <meta name="googlebot" content="noodp,noarchive,noimageindex" />
     <meta name="keywords" content="">
     <meta name="author" content="Pambolazo">
-   
-   <!--  <link href="http://es.fifa.com/imgml/favicon/favicon.ico" rel="shortcut icon"> -->
-    <!-- <link rel="apple-touch-icon" sizes="512x512" href="http://es.fifa.com/imgml/favicon/touch-icon-newipad.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="http://es.fifa.com/imgml/favicon/touch-icon-iphone4.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="http://es.fifa.com/imgml/favicon/touch-icon-ipad.png">
-    <link rel="apple-touch-icon" href="http://es.fifa.com/imgml/favicon/touch-icon-iphone.png"> -->
-    <!-- <meta name="apple-itunes-app-js" content="app-id=756915899">
-    <meta name="google-play-app" content="app-id=com.fifa.fifaapp.android"> -->
     <meta property="og:title" content="Quiniela Mundial Brasil 2014"/>
-<!-- <meta property="og:image" content="http://davidwalsh.name/wp-content/themes/klass/img/facebooklogo.png"/> -->
     <meta property="og:site_name" content="Pambolazo"/>
     <meta property="og:type" content="blog"/>
     <meta property="og:description" content="Participa pronosticando que equipos del Mundial pasarán a la siguiente fase y en que posiciones terminan la fase de grupos."/>
@@ -2105,9 +2095,23 @@
             <div id="panel1" class="content active">
                  <div class="large-12 columns">
             <center><h1>Genera tu Quiniela</h1>
-                <h4>Por favor proporciona tu Nombre.</h4>
+                
                </center>
-                <p>Debes seleccionar los equipos que crees que van a pasar a la siguiente ronda, si aciertas ganarás 1 pto por cada equipo que pase a la siguiente ronda y si aciertas en la posición de su grupo se te sumará otro 1 pto por cada equipo en su poscición final, al final se acomularan tus puntos.</p>
+               <h4>Intrucciones:</h4>
+               <p>
+                <ul> <li>Selecciona los dos equipos de cada grupo que pasarán a la siguiente ronda.</li>
+               
+                <li>
+                    Selecciona la posición del equipo que va pasar a la suguiente ronda (1 o 2).
+                </li>
+                <li>
+                    ¡Envia tu Quiniela!
+                </li>
+                 </ul>
+               </p>
+               
+
+                <!-- <p>Debes seleccionar los equipos que crees que van a pasar a la siguiente ronda, si aciertas ganarás 1 pto por cada equipo que pase a la siguiente ronda y si aciertas en la posición de su grupo se te sumará otro 1 pto por cada equipo en su poscición final, al final se acomularan tus puntos.</p> -->
         </div>
 
                 <div class="row">
@@ -2127,8 +2131,22 @@
             </div>
         </dd>
          <dd>
-            <a href="#panel2">Tengo token</a>
+            <a href="#panel2">Tengo dudas</a>
             <div id="panel2" class="content">
+                <div class="row">
+   <h4>¿Como funciona?</h4>
+               <p>
+                Obtendrás un punto por cada acierto sin importar la posición, si aciertas las posición obtienes 2 puntos por cada equipo.
+                Al terminar la fase de grupos, se te acumularán tus puntos obtenidos y se generará una tabla de posiciones.
+               </p>
+               <h4>¿Puedo cambiar mi quiniela?</h4>
+               <p>Si, a partir de Junio podrás hacerlo hasta el día en que inicie el mundial.
+               </p>
+            </div>
+        </dd>
+         <dd>
+            <a href="#panel3">Tengo token</a>
+            <div id="panel3" class="content">
                 <div class="row">
    <form>
         <label> Token
@@ -2338,10 +2356,23 @@
             data: {'token': $("#tokenConf").val()},
             type:"post"
         }).done(function(res){
-            if(res==1){
-                alert("Ya Existe el token");
+            if(res==0){
+
+                alert("No hay token");
+                
+
+               
             }else{
-               alert("No hay token");
+
+                $("#bienvenido").css('display','block')    
+                $("#nombre").val(res[0].nombre);
+                $("#email").val(res[0].email);
+                $("#bienvenidoNombre").text(res[0].nombre);
+                 $("#myModal").foundation('reveal','close');
+               // alert("Ya Existe el token: " + res);
+
+
+
             }
         }).fail();
 

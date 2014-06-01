@@ -76,10 +76,10 @@ class HomeController extends BaseController {
 		$token = Input::get('token');
 		Log::info("TOKEN: ".$token);
 		$pronosticos = Pronosticos::where('token',$token)->get();
-		Log::info("INFO: ".$pronosticos);
+		Log::info("INFO: ".count($pronosticos));
 
-		if(empty($pronosticos)){
-			return 1;
+		if(count($pronosticos) == 1){
+			return Response::json($pronosticos);
 		}
 		else
 		{
