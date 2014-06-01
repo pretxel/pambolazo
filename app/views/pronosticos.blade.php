@@ -2106,7 +2106,8 @@
                  <div class="large-12 columns">
             <center><h1>Genera tu Quiniela</h1>
                 <h4>Por favor proporciona tu Nombre.</h4>
-                <p>Debes seleccionar los equipos que crees que van a pasar a la siguiente ronda, si aciertas ganarás 1 pto por cada equipo que pase a la siguiente ronda y si aciertas en la posición de su grupo se te sumará otro 1 pto por cada equipo en su poscición final, al final se acomularan tus puntos.</p></center>
+               </center>
+                <p>Debes seleccionar los equipos que crees que van a pasar a la siguiente ronda, si aciertas ganarás 1 pto por cada equipo que pase a la siguiente ronda y si aciertas en la posición de su grupo se te sumará otro 1 pto por cada equipo en su poscición final, al final se acomularan tus puntos.</p>
         </div>
 
                 <div class="row">
@@ -2114,39 +2115,45 @@
                         <label> Correo Electrónico
                             <input type="email" id="emailConf" required>
                         </label> 
-                        <label> Nombre
+                        <label> Alias ó Nombre
                             <input type="text" id="nombreConf" required>
                         </label>     
                         <button type="submit" id="confirmar" class="button expand">Confirmar</button>
                     </form>
                 </div>
-
+                <p>NOTA: Tú alias sera publicado en los scores, por lo que no es recomendado agregar información personal.
+                </p>
                  
             </div>
         </dd>
-        <!--  <dd>
+         <dd>
             <a href="#panel2">Tengo token</a>
             <div id="panel2" class="content">
                 <div class="row">
    <form>
         <label> Token
-            <input type="text" id="nombreConf" required>
+            <input type="text" id="tokenConf" required>
         </label>    
-        <button type="submit" id="confirmarToken" class="button expand">Confirmar</button>
+        <button  id="confirmarToken" class="button expand">Confirmar</button>
     </form>
     </div>
             </div>
-        </dd> -->
+        </dd>
     </dl>
     <div class="row">
-        <div class="large-3 ">
+
+        <div class="medium-6 columns"><h4>Participantes: {{$total}}</h4></div>
+        <div class="medium-6 columns"><h4>Días Faltantes: {{$diasFal}}</h4></div>
+
+       <!--  <div class="large-3 ">
             
         </div>
         <div class="large-6 ">
             <h4>Participantes: {{$total}}</h4>
             </div>
             <div class="large-3 ">
-                </div>
+                <h4>Días Faltantes: {{$diasFal}}</h4>
+                </div> -->
 
     </div>
 </div>
@@ -2176,11 +2183,24 @@
         nombreConf = $("#nombreConf").val();
         emailConf = $("#emailConf").val();
         if ($("#nombreConf").val() != '' && $("#emailConf").val() != ''){
-        $("#bienvenido").css('display','block')    
-        $("#nombre").val(nombreConf);
-        $("#email").val(emailConf);
-        $("#bienvenidoNombre").text(nombreConf);
-        $("#myModal").foundation('reveal','close');
+        
+        $.ajax({
+            url:'valida',
+            data: {'email': $("#emailConf").val()},
+            type:"post"
+        }).done(function(res){
+            if(res==1){
+                alert("Ya Existe el correo");
+            }else{
+                $("#bienvenido").css('display','block')    
+                $("#nombre").val(nombreConf);
+                $("#email").val(emailConf);
+                $("#bienvenidoNombre").text(nombreConf);
+                $("#myModal").foundation('reveal','close');
+            }
+        }).fail();
+
+        
         }
     });
 
@@ -2309,6 +2329,27 @@
         // $("form#postGuarda").submit();
         return false;
     });
+
+    $("#confirmarToken").click(function(){
+
+
+        $.ajax({
+            url:'validaToken',
+            data: {'token': $("#tokenConf").val()},
+            type:"post"
+        }).done(function(res){
+            if(res==1){
+                alert("Ya Existe el token");
+            }else{
+               alert("No hay token");
+            }
+        }).fail();
+
+        return false;
+    });
+
+
+
 
   </script>
 

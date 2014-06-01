@@ -17,4 +17,8 @@ Route::get('/','HomeController@showPronosticos');
 
 Route::post('pronosticos/guarda','HomeController@savePronosticos');
 
+Route::post('valida','HomeController@validarEmail');
+
+Route::post('validaToken','HomeController@validaToken');
+
 // Route::get('gracias/{token?}','HomeController@gracias');
