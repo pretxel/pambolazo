@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"jenssegers/mongodb": "*",
-		 "illuminate/support": "4.1.*"
+		 "illuminate/support": "4.1.*",
+		 "thujohn/pdf": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

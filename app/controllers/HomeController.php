@@ -22,7 +22,7 @@ class HomeController extends BaseController {
 
 		$fechaFormato = date("Y-m-d");
 		Log::info("FECHA HOY: ".$fechaFormato);
-		$paridos = Partidos::where('fecha','=','2014-06-15')->get();
+		$paridos = Partidos::where('fecha','=',$fechaFormato)->get();
 		Log::info("PARTIDOS: ".$paridos);
 
 		if (count($paridos) == 0){
@@ -31,34 +31,65 @@ class HomeController extends BaseController {
 		}else{
 
 			$aleatorio = rand(0,(count($paridos)-1));
-			return View::make('hello')->with('equipoL',$paridos[$aleatorio]->local)->with('equipoV',$paridos[$aleatorio]->visitante);
+			$imagenEquipoL = "";
+			$imagenEquipoV = "";
+
+			if ($paridos[$aleatorio]->local == "Brasil"){
+				$imagenEquipoL = "copa/bra.png";
+
+			}
+			if ($paridos[$aleatorio]->visitante == "Croacia"){
+				$imagenEquipoV = "copa/cro.png";
+			}
+
+
+			
+			return View::make('hello')
+				->with('equipoL',$paridos[$aleatorio]->local)
+				->with('equipoV',$paridos[$aleatorio]->visitante)
+				->with('imagenEquipoL', $imagenEquipoL)
+				->with('imagenEquipoV', $imagenEquipoV);
 		}
 	}
+
+
 
 
 	public function showPronosticos()
 	{
-		// $datetime1 = date("Y-m-d");
-		$datetime1 = new DateTime("now");
-		$datetime2 = date_create('2014-06-12');
 
-		$interval = date_diff($datetime1, $datetime2);
-		$diasFaltantes = $interval->format('%a días');
+		$tiempo = Utils::calculaTiempo();
 
-		$dias = $interval->format('%R%a');
+		
+		
+		Log::info("Dias faltantes: ".$tiempo["diasFaltantes"]);
+		Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
 
-		Log::info("Dias faltantes: ".$diasFaltantes);
+		$diasFaltantes = $tiempo["diasFaltantes"];
+		$horasFaltantes = $tiempo["horasFaltantes"];
+		$minutosFaltantes = $tiempo["minutosFaltantes"];
 
-		if ($dias > 0){
+		$isActivo = 0;
+		$estadisticas = '';
+
+		if ($diasFaltantes > 0 || $horasFaltantes > 0 || $minutosFaltantes > 0){
+			$isActivo = 1;
 			Log::info("TODAVIA FALATA PARA EL MUNDIAL");
 		}else{
+			$isActivo = 0;
+			$diasFaltantes = 0;
+			$horasFaltantes = 0;
+			$estadisticas =  Utils::generaEstadisticas();
 			Log::info("YA INICIO EL MUNDIAL");
 		}
 
 		$pronosticos = Pronosticos::all();
-		return View::make('pronosticos')->with('total',count($pronosticos))->with('diasFal',$diasFaltantes);
+		return View::make('pronosticos')
+				->with('total',count($pronosticos))
+				->with('diasFal',$diasFaltantes." dias ".$horasFaltantes." horas")
+				->with('isActivo', $isActivo)
+				->with('estadisticas', $estadisticas);
 	}
-
 
 	public function validarEmail(){
 
@@ -75,8 +106,26 @@ class HomeController extends BaseController {
 	public function validaToken(){
 		$token = Input::get('token');
 		Log::info("TOKEN: ".$token);
+
+
 		$pronosticos = Pronosticos::where('token',$token)->get();
+
+
 		Log::info("INFO: ".count($pronosticos));
+
+		$score =  Utils::califica($pronosticos);
+
+		$pron = Pronosticos::find($pronosticos[0]->idpronosticos);
+		$pron->score = $score;
+		$pron->save();
+
+		$pronosticos = Pronosticos::where('token',$token)->get();
+
+		// $datos = [
+		// "score" => $score,
+		// "nombre" => $pron->nombre
+		// ];
+
 
 		if(count($pronosticos) == 1){
 			return Response::json($pronosticos);
@@ -86,6 +135,17 @@ class HomeController extends BaseController {
 			return 0;
 		}
 	}
+
+
+	public function showRanking(){
+		Utils::calificaAll();
+
+		$conPron = Pronosticos::all();
+
+		
+
+	}
+
 
 	public function savePronosticos(){
 
@@ -197,10 +257,13 @@ class HomeController extends BaseController {
 
 			
 
-		$conjEquipos = $brasil.",".$mexico.",".$camerun.",".$croacia.",".$españa.",".$holanda.",".$chile.",".$australia.",".$colombia.",".$grecia.",".$costaMarfil.",".$japon.",".$uruguay.",".$costaRica.",".$inglaterra.",".$italia.",".$suiza.",".$ecuador.",".$francia.",".$honduras.",".$argentina.",".$bosnia.",".$iran.",".$nigeria.",".$alemania.",".$portugal.",".$usa.",".$ghana.",".$belgica.",".$rusia.",".$corea.",".$argelia;
-		$conPosiciones = $seleBrasil.",".$seleMexico.",".$seleCamerun.",".$seleCroacia.",".$seleEspaña.",".$seleHolanda.",".$seleChile.",".$seleAustralia.",".$seleColombia.",".$seleGrecia.",".$seleCostaM.",".$seleJapon.",".$seleUruguay.",".$seleCostaR.",".$seleInglaterra.",".$seleItalia.",".$seleSuiza.",".$seleEcuador.",".$seleFrancia.",".$seleHonduras.",".$seleArgentina.",".$seleBosnia.",".$seleIran.",".$seleNigeria.",".$seleAlemania.",".$selePortugal.",".$seleEEUU.",".$seleGhana.",".$seleBelgica.",".$seleRusia.",".$seleCorea.",".$seleArgelia;
+		$conjEquipos = $brasil.",".$croacia.",".$mexico.",".$camerun.",".$españa.",".$holanda.",".$chile.",".$australia.",".$colombia.",".$grecia.",".$costaMarfil.",".$japon.",".$uruguay.",".$costaRica.",".$inglaterra.",".$italia.",".$suiza.",".$ecuador.",".$francia.",".$honduras.",".$argentina.",".$bosnia.",".$iran.",".$nigeria.",".$alemania.",".$portugal.",".$ghana.",".$usa.",".$belgica.",".$argelia.",".$rusia.",".$corea;
+		$conPosiciones = $seleBrasil.",".$seleCroacia.",".$seleMexico.",".$seleCamerun.",".$seleEspaña.",".$seleHolanda.",".$seleChile.",".$seleAustralia.",".$seleColombia.",".$seleGrecia.",".$seleCostaM.",".$seleJapon.",".$seleUruguay.",".$seleCostaR.",".$seleInglaterra.",".$seleItalia.",".$seleSuiza.",".$seleEcuador.",".$seleFrancia.",".$seleHonduras.",".$seleArgentina.",".$seleBosnia.",".$seleIran.",".$seleNigeria.",".$seleAlemania.",".$selePortugal.",".$seleGhana.",".$seleEEUU.",".$seleBelgica.",".$seleArgelia.",".$seleRusia.",".$seleCorea;
+		$upt = Input::get('upt');
 
-		$token = Hash::make($nombre);
+		if ($upt == 0){
+
+			$token = Hash::make($nombre);
 
 		$pronostico = new Pronosticos;
 		$pronostico->equipos = $conjEquipos;
@@ -211,12 +274,8 @@ class HomeController extends BaseController {
 
 		$pronostico->save();
 
-		Log::info("VALOR BRASIL: ".$conjEquipos);
 
-
-
-		//Datos para enviar
-				$user = array(
+		$user = array(
 			    'email'=> $email,
 			    'name'=>'Laravelovich'
 				);
@@ -234,7 +293,30 @@ class HomeController extends BaseController {
 				});
 
 
-		return View::make('gracias')->with('token',$token);
+				return View::make('gracias')->with('token',$token);
+
+		}else{
+			$pron = Pronosticos::find(Input::get('pronosticosId'));
+			$pron->equipos = $conjEquipos;
+			$pron->posiciones = $conPosiciones;
+			$pron->nombre = $nombre;
+			$pron->email = $email;
+			$pron->save();
+
+			return View::make('actualizar');
+		}
+
+		
+
+		// Log::info("VALOR BRASIL: ".$conjEquipos);
+
+
+
+		//Datos para enviar
+				
+
+
+		// return View::make('gracias')->with('token',$token);
 		// return Redirect::to('gracias/'.$token);
 
 	}
@@ -243,6 +325,14 @@ class HomeController extends BaseController {
 	public function gracias($token=0) {
 			
 			return View::make('gracias')->with('token',$token);
+	}
+
+
+	public function generarPdf($idPronos=0){
+		$pron = Pronosticos::find($idPronos);
+		Log::info("PRON : ".$pron);
+		$html = View::make("pdf.quiniela")->with('equipos',$pron->equipos);
+    	return PDF::load($html, 'A4', 'portrait')->show();
 	}
 
 }

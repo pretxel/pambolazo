@@ -25,7 +25,7 @@
 
 
 
-    {{ HTML::style('css/foundation.css') }}
+  {{ HTML::style('css/foundation.css') }}
   {{ HTML::style('css/normalize.css')}}
   {{ HTML::style('css/styles.css')}}    
 
@@ -33,63 +33,16 @@
 
   <script src="{{ URL::asset('js/vendor/jquery.js') }}"></script>
   <script src="{{ URL::asset('js/foundation.min.js') }}"></script>
+  <script src="{{ URL::asset('js/jquery.blockUI.js') }}"></script>
+  <script src="{{ URL::asset('js/utils.js') }}"></script>
+  <script src="{{ URL::asset('js/recuperarToken.js') }}"></script>
+  <script src="{{ URL::asset('js/main.js') }}"></script>
   
 
-    <style id="clearly_highlighting_css" type="text/css">
-    /* selection */
-    html.clearly_highlighting_enabled ::-moz-selection {
-        background: rgba(246, 238, 150, 0.99);
-    }
-    html.clearly_highlighting_enabled ::selection {
-        background: rgba(246, 238, 150, 0.99);
-    }
-    /* cursor */
-    html.clearly_highlighting_enabled {
-        /* cursor and hot-spot position -- requires a default cursor, after the URL one */
-        cursor: url("chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/clearly/images/highlight--cursor.png") 14 16, text;
-    }
-    /* highlight tag */
-    em.clearly_highlight_element {
-        font-style: inherit !important;
-        font-weight: inherit !important;
-        background-image: url("chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/clearly/images/highlight--yellow.png");
-        background-repeat: repeat-x;
-        background-position: top left;
-        background-size: 100% 100%;
-    }
-    /* the delete-buttons are positioned relative to this */
-    em.clearly_highlight_element.clearly_highlight_first {
-        position: relative;
-    }
-    /* delete buttons */
-    em.clearly_highlight_element a.clearly_highlight_delete_element {
-        display: none;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        line-height: 0;
-        position: absolute;
-        width: 34px;
-        height: 34px;
-        left: -17px;
-        top: -17px;
-        background-image: url("chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/clearly/images/highlight--delete-sprite.png");
-        background-repeat: no-repeat;
-        background-position: 0px 0px;
-    }
-    em.clearly_highlight_element a.clearly_highlight_delete_element:hover {
-        background-position: -34px 0px;
-    }
-    /* retina */
-    @media (min--moz-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
-        em.clearly_highlight_element {
-            background-image: url("chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/clearly/images/highlight--yellow@2x.png");
-        }
-        em.clearly_highlight_element a.clearly_highlight_delete_element {
-            background-image: url("chrome-extension://pioclpoplcdbaefihamjohnefbikjilc/clearly/images/highlight--delete-sprite@2x.png");
-            background-size: 68px 34px;
-        }
-    }
+
+<style type="text/css">
+
+
 
     .comboTransA,.comboTransB,.comboTransC,.comboTransD,.comboTransE,.comboTransF,.comboTransG,.comboTransH{
         display: none;
@@ -105,10 +58,15 @@
     margin-right: auto;
     }
     
+</style>
 
-    </style>
 
+
+   
 </head>
+
+
+
 
 <body class="es">
    
@@ -124,19 +82,42 @@
                     <div class="header-wrap ">
                         <div class="title-wrap">
                             <h1 class="title">
-                                <span>Quiniela Mundial Brasil 2014</span>
+                                <center><span>Quiniela Mundial Brasil 2014</span></center>
                             </h1>
                         </div>
                     </div>
                 </div>
-                <div class="row row-first">
-                    <div class="navbar navbar-pageheader navbar-groupslistheader nav-scrollspy ">
-                        <div class="container">
-                           <center> <h1 id="bienvenido">Bienvenido: <span id="bienvenidoNombre"></span></h1></center>
-                            <div class="adv-nav hidden" id="div-gpt-ad-nav"></div>
-                        </div>
-                    </div>
-                </div>
+                <nav class="top-bar" data-topbar="">
+  <ul class="title-area">
+    <!-- Title Area -->
+    <li class="name">
+
+    </li>
+    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href=""><span>Menu</span></a></li>
+  </ul>
+
+  
+<section class="top-bar-section">
+    <ul class="left">
+      <li><a href="#" style="font-size: 20px;">Bienvenido: <span id="bienvenidoNombre"></span></h1> </a>
+
+      </li>
+      <li class="divider"></li>
+    </ul>
+    <!-- Right Nav Section -->
+    <ul class="right">
+
+
+        <li class="divider"></li>
+      <li><a href="#" data-reveal-id="modalRanking">Ranking</a></li>
+        <li class="divider"></li>
+      <li><a href="#">Score: <span id="score"></span></a></li>
+      <li class="divider"></li>
+      <li><a href="/">Salir</a></li>
+    </ul>
+  </section></nav>
+                
                 <form id="postGuarda" action="pronosticos/guarda" method="POST">
                 <div class="row ">
                     <div class="col-xs-12 clear-grid ">
@@ -153,8 +134,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -165,7 +145,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255933/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -178,31 +158,14 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43924/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/bra.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Brasil</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                        
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Brasil']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Brasil']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Brasil']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/bra.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">BRA</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoA" name="brasil" class="checkGrupoA" value="7">
@@ -218,7 +181,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43924"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255933/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -231,31 +194,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43938/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/cro.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Croacia</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Croacia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Croacia']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Croacia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/cro.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">CRO</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoA" name="croacia" class="checkGrupoA" value="13">
@@ -273,7 +218,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43938"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255933/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -286,31 +231,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43911/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/mex.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">México</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Mexico']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Mexico']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Mexico']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/mex.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">MEX</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoA" name="mexico" class="checkGrupoA" value="25">
@@ -328,7 +255,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43911"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255933/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -341,31 +268,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43849/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/cmr.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Camerún</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Camerun']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Camerun']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Camerun']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/cmr.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">CMR</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoA" name="camerun" class="checkGrupoA" value="8">
@@ -396,8 +305,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -407,7 +315,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255935/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -420,31 +328,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43969/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/esp.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">España</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Espana']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Espana']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Espana']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/esp.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">ESP</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoB" name="españa" class="checkGrupoB" value="16">
@@ -461,7 +351,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43969"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255935/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -474,31 +364,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43960/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/ned.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Países Bajos</span>
-                                                                </div>
+                                                     <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Paises Bajos']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Paises Bajos']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Paises Bajos']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/ned.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">NED</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoB" name="holanda" class="checkGrupoB" value="27">
@@ -515,7 +387,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43960"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255935/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -528,31 +400,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43925/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/chi.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Chile</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Chile']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Chile']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Chile']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/chi.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">CHI</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoB" name="chile" class="checkGrupoB" value="9">
@@ -569,7 +423,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43925"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255935/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -582,31 +436,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43976/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/aus.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Australia</span>
-                                                                </div>
+                                                     <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Australia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Australia']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Australia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/aus.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">AUS</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoB" name="australia" class="checkGrupoB" value="4">
@@ -636,8 +472,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -648,7 +483,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255937/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -661,31 +496,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43926/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/col.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Colombia</span>
-                                                                </div>
+                                                     <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Colombia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Colombia']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Colombia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/col.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">COL</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoC" name="colombia" class="checkGrupoC" value="10">
@@ -702,7 +519,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43926"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255937/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -715,31 +532,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43949/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/gre.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Grecia</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Grecia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Grecia']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Grecia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/gre.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">GRE</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoC" name="grecia" class="checkGrupoC" value="19">
@@ -756,7 +555,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43949"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255937/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -769,31 +568,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43854/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/civ.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Costa de Marfil</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Costa de Marfil']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Costa de Marfil']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Costa de Marfil']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/civ.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">CIV</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoC" name="costaMarfil" class="checkGrupoC" value="11">
@@ -810,7 +591,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43854"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255937/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -823,31 +604,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43819/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/jpn.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Japón</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Japon']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Japon']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Japon']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/jpn.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">JPN</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoC" name="japon" class="checkGrupoC" value="24">
@@ -877,8 +640,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -889,7 +651,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255939/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -902,31 +664,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43930/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/uru.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Uruguay</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Uruguay']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Uruguay']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Uruguay']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/uru.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">URU</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoD" name="uruguay" class="checkGrupoD" value="32">
@@ -943,7 +687,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43930"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255939/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -956,31 +700,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43901/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/crc.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Costa Rica</span>
-                                                                </div>
+                                                   <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Costa Rica']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Costa Rica']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Costa Rica']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/crc.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">CRC</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoD" name="costaRica" class="checkGrupoD" value="12">
@@ -997,7 +723,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43901"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255939/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1010,31 +736,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43942/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/eng.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Inglaterra</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Inglaterra']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Inglaterra']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Inglaterra']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/eng.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">ENG</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoD" name="inglaterra" class="checkGrupoD" value="21">
@@ -1051,7 +759,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43942"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255939/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1064,31 +772,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43954/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/ita.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Italia</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Italia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Italia']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Italia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/ita.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">ITA</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoD" name="italia" class="checkGrupoD" value="23">
@@ -1119,8 +809,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -1131,7 +820,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255941/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1144,31 +833,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43971/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/sui.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Suiza</span>
-                                                                </div>
+                                                   <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Suiza']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Suiza']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Suiza']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/sui.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">SUI</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoE" name="suiza" class="checkGrupoE" value="31">
@@ -1185,7 +856,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43971"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255941/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1198,31 +869,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43927/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/ecu.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Ecuador</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Ecuador']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Ecuador']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Ecuador']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/ecu.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">ECU</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoE" name="ecuador" class="checkGrupoE" value="14">
@@ -1239,7 +892,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43927"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255941/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1252,31 +905,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43946/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/fra.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Francia</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Francia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Francia']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Francia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/fra.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">FRA</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoE" name="francia" class="checkGrupoE" value="17">
@@ -1293,7 +928,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43946"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255941/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1306,31 +941,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43909/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/hon.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Honduras</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Honduras']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Honduras']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Honduras']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/hon.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">HON</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoE" name="honduras" class="checkGrupoE" value="20">
@@ -1360,8 +977,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -1372,7 +988,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255943/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1385,31 +1001,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43922/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/arg.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Argentina</span>
-                                                                </div>
+                                                   <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Argentina']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Argentina']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Argentina']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/arg.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">ARG</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoF" name="argentina" class="checkGrupoF" value="3">
@@ -1426,7 +1024,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43922"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255943/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1439,31 +1037,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=44037/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/bih.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Bosnia y Herzegovina</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Bosnia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Bosnia']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Bosnia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/bih.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">BIH</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoF" name="bosnia" class="checkGrupoF" value="6">
@@ -1480,7 +1060,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="44037"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255943/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1493,31 +1073,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43817/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/irn.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Irán</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Iran']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Iran']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Iran']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/irn.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">IRN</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoF" name="iran" class="checkGrupoF" value="22">
@@ -1534,7 +1096,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43817"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255943/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1547,31 +1109,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43876/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/nga.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Nigeria</span>
-                                                                </div>
+                                                   <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Nigeria']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Nigeria']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Nigeria']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/nga.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">NGA</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoF" name="nigeria" class="checkGrupoF" value="26">
@@ -1597,8 +1141,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -1609,7 +1152,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255945/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1622,31 +1165,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43948/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/ger.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Alemania</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Alemania']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Alemania']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Alemania']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/ger.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">GER</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoG" name="alemania" class="checkGrupoG" value="1">
@@ -1663,7 +1188,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43948"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255945/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1676,31 +1201,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43963/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/por.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Portugal</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Portugal']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Portugal']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Portugal']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/por.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">POR</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoG" name="portugal" class="checkGrupoG" value="28">
@@ -1717,7 +1224,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43963"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255945/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1730,31 +1237,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43860/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/gha.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Ghana</span>
-                                                                </div>
+                                                   <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Ghana']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Ghana']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Ghana']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/gha.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">GHA</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoG" name="ghana" class="checkGrupoG" value="18">
@@ -1771,7 +1260,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43860"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255945/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1784,31 +1273,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43921/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/usa.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">EEUU</span>
-                                                                </div>
+                                                   <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['EEUU']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['EEUU']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['EEUU']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/usa.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">USA</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoG" name="usa" class="checkGrupoG" value="15">
@@ -1838,8 +1309,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="tbl-teamname teamname-nolink">Equipos</th>
-                                                    <th class="tbl-teamname teamname-link">Equipos</th>
-                                                    <th class="tbl-teamcode">Equipos</th>
+                                                    <th class="tbl-teamname teamname-nolink"></th>
                                                     <th class="tbl-matchplayed">
                                                         <abbr title="Partidos jugados">Votar</abbr>
                                                     </th>
@@ -1850,7 +1320,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255947/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1863,31 +1333,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43935/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/bel.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Bélgica</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Belgica']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Belgica']}}%"></span>
+                                                                 <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Belgica']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/bel.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">BEL</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoH" name="belgica" class="checkGrupoH" value="5">
@@ -1904,7 +1356,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43935"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255947/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1917,31 +1369,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43843/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/alg.png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Argelia</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Argelia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Argelia']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Argelia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/alg.png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">ALG</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoH" name="argelia" class="checkGrupoH" value="2">
@@ -1958,7 +1392,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43843"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255947/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1971,31 +1405,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43965/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/rus(1).png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">Rusia</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Rusia']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Rusia']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Rusia']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/rus(1).png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">RUS</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoH" name="rusia" class="checkGrupoH" value="30">
@@ -2012,7 +1428,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43965"></td>
                                                 </tr>
-                                                <tr data-url="/worldcup/edition=2014/matches/group/group=255947/_group_team_matches.html">
+                                                <tr>
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -2025,31 +1441,13 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="tbl-teamname teamname-link">
-                                                        <a href="http://es.fifa.com/worldcup/teams/team=43822/index.html">
-                                                            <div class="t">
-                                                                <div class="t-i i-4">
-                                                                    <span class="t-i-wrap">
-                                                                        <img alt="" src="./copa/kor(1).png" class="i-4-flag flag">
-                                                                    </span>
-                                                                </div>
-                                                                <div class="t-n">
-                                                                    <span class="t-nText">República de Corea</span>
-                                                                </div>
+                                                    <td class="tbl-teamname teamname-nolink" style="width: 30%;vertical-align: middle;">
+                                                        @if ($isActivo === 0)
+                                                            <div data-tooltip class="radius progress success large-8" title="{{$estadisticas['porcentajes']['Republica Corea']}}%">
+                                                                <span class="meter" style="width: {{$estadisticas['porcentajes']['Republica Corea']}}%"></span>
+                                                                <span class="[success alert secondary] [round radius] label">{{$estadisticas['votos']['Republica Corea']}} votos</span>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td class="tbl-teamcode">
-                                                        <div class="t">
-                                                            <div class="t-i i-4">
-                                                                <span class="t-i-wrap">
-                                                                    <img alt="" src="./copa/kor(1).png" class="i-4-flag flag">
-                                                                </span>
-                                                            </div>
-                                                            <div class="t-n">
-                                                                <span class="t-nTri">KOR</span>
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </td>
                                                     <td class="tbl-matchplayed">
                                                         <input type="checkbox" id="grupoH" name="corea" class="checkGrupoH" value="29">
@@ -2075,7 +1473,13 @@
                     </div>
                     <input type="hidden" name="nombre" id="nombre" value="">
                      <input type="hidden" name="email" id="email" value="">
-                    <button type="submit" id="enviar" class="button expand">Enviar</button>
+                     <input type="hidden" name="upt" id="upt" value="0">
+                     <input type="hidden" name="pronosticosId" id="pronosticosId" value="">
+                    @if ($isActivo === 1)
+                        <button type="submit" id="enviar" class="button expand">Enviar</button>
+                    @else
+                       <!--  <button type="button" id="estadisticasButton" class="button expand">Estadisticas</button> -->
+                    @endif
                 </div>
 
 
@@ -2093,6 +1497,8 @@
         <dd>
             <a href="#panel1">Genera tu Quiniela</a>
             <div id="panel1" class="content active">
+                 
+                @if ($isActivo === 1)
                  <div class="large-12 columns">
             <center><h1>Genera tu Quiniela</h1>
                 
@@ -2109,10 +1515,8 @@
                 </li>
                  </ul>
                </p>
-               
-
-                <!-- <p>Debes seleccionar los equipos que crees que van a pasar a la siguiente ronda, si aciertas ganarás 1 pto por cada equipo que pase a la siguiente ronda y si aciertas en la posición de su grupo se te sumará otro 1 pto por cada equipo en su poscición final, al final se acomularan tus puntos.</p> -->
-        </div>
+            
+                 </div>
 
                 <div class="row">
                     <form>
@@ -2127,6 +1531,24 @@
                 </div>
                 <p>NOTA: Tú alias sera publicado en los scores, por lo que no es recomendado agregar información personal.
                 </p>
+                @else
+                        <center><h4>Ya acabo el tiempo para capturar tu quiniela.</h4>
+                            <p>Sólo puedes ver las estadísticas ingresando con tu token.</p>
+                             <form>
+                                <label> Token
+                                <input type="password" id="tokenConf" required>
+                                </label>    
+                                <button  id="confirmarToken" class="button expand">Confirmar</button>
+                            </form>
+
+                            <div class="row">
+                                <div class="small-6 large-6 columns"></div>
+                                <div class="small-6 large-6 columns"><a href="#" data-reveal-id="modalRecuperar">Recuperar Token</a></div>
+  
+                            </div>
+                            
+                        </center>
+                @endif
                  
             </div>
         </dd>
@@ -2144,7 +1566,7 @@
                </p>
             </div>
         </dd>
-         <dd>
+       <!--   <dd>
             <a href="#panel3">Tengo token</a>
             <div id="panel3" class="content">
                 <div class="row">
@@ -2156,22 +1578,12 @@
     </form>
     </div>
             </div>
-        </dd>
+        </dd> -->
     </dl>
     <div class="row">
 
         <div class="medium-6 columns"><h4>Participantes: {{$total}}</h4></div>
         <div class="medium-6 columns"><h4>Días Faltantes: {{$diasFal}}</h4></div>
-
-       <!--  <div class="large-3 ">
-            
-        </div>
-        <div class="large-6 ">
-            <h4>Participantes: {{$total}}</h4>
-            </div>
-            <div class="large-3 ">
-                <h4>Días Faltantes: {{$diasFal}}</h4>
-                </div> -->
 
     </div>
 </div>
@@ -2186,204 +1598,71 @@
 </div>
 
 
+<div id="modalRecuperar" class="reveal-modal" data-reveal style="display:block;">
+            <div class="row">
+    <div class="large-12 columns">
+            <p>Te enviaremos un correo para que puedas cambiar tu token.</p>    
 
-    
+            <center>
+                <form>
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="emailRecu" id="emailRecu">
+                    <button  id="enviarRecu" class="button expand">Confirmar</button>
+                </form>
+            </center>
+        </div>
+  </div>
+  <a class="close-reveal-modal" data-reveal-id="myModal" >&#215;</a>
+</div>
+
+<div id="modalRanking" class="reveal-modal" data-reveal style="display:block;">
+            <div class="row">
+    <div class="large-12 columns">
+               
+
+            <center>
+                <h1>Ranking</h1> 
+                <table>
+  <thead>
+    <tr>
+      <th width="50">Posición</th>
+      <th>Nombre</th>
+      <th width="150">Puntos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>???</td>
+      <td>???</td>
+      <td>???</td>
+    </tr>
+    <tr>
+      <td>???</td>
+      <td>???</td>
+      <td>???</td>
+    </tr>
+    <tr>
+      <td>???</td>
+      <td>???</td>
+      <td>???</td>
+    </tr>
+  </tbody>
+</table>
+            </center>
+        </div>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+
+
 
             </form>
             </div>
         </div>
 
     </div>
-    <script>
-    $(document).foundation();
-    $("#myModal").foundation('reveal','open');
-    $("#confirmar").click(function(){
-        nombreConf = $("#nombreConf").val();
-        emailConf = $("#emailConf").val();
-        if ($("#nombreConf").val() != '' && $("#emailConf").val() != ''){
-        
-        $.ajax({
-            url:'valida',
-            data: {'email': $("#emailConf").val()},
-            type:"post"
-        }).done(function(res){
-            if(res==1){
-                alert("Ya Existe el correo");
-            }else{
-                $("#bienvenido").css('display','block')    
-                $("#nombre").val(nombreConf);
-                $("#email").val(emailConf);
-                $("#bienvenidoNombre").text(nombreConf);
-                $("#myModal").foundation('reveal','close');
-            }
-        }).fail();
-
-        
-        }
-    });
-
-    $(".reveal-modal-bg").click(function(){
-        $(".reveal-modal-bg").css('display','block');
-    });
-
-    $(".checkGrupoA").change(function(){
-        checks(this);
-    });
-     $(".checkGrupoB").change(function(){
-        checks(this);
-    });
-      $(".checkGrupoC").change(function(){
-        checks(this);
-    });
-       $(".checkGrupoD").change(function(){
-        checks(this);
-    });
-         $(".checkGrupoE").change(function(){
-        checks(this);
-    });
-       $(".checkGrupoF").change(function(){
-        checks(this);
-    });
-       $(".checkGrupoG").change(function(){
-        checks(this);
-    });
-       $(".checkGrupoH").change(function(){
-        checks(this);
-    });
-
-    $(".comboTransA").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransB").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransC").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransD").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransE").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransF").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransG").change(function(){
-        changeCombo(this);
-    });
-    $(".comboTransH").change(function(){
-        changeCombo(this);
-    });
-
-
-    function checks(entra){
-        var comobo = $(entra).parents('td');
-        var idSele = comobo[0].nextSibling.nextSibling.children[0].id;
-
-        var checados = $("."+entra.className+":checked");
-
-         if(checados.length > 2){
-            $(entra).attr('checked',false);
-         }
-
-
-        if ($(entra).is(':checked')){
-            // alert("Selecionado");
-            // var comobo = $(this).parents('td');
-            // var idSele = comobo[0].nextSibling.nextSibling.children[0].id;
-            $("#"+idSele).css('display','block');
-            //alert(comobo[0].nextSibling.nextSibling.children[0].id);
-        }
-        else{
-            $("#"+idSele).css('display','none');
-             // alert("Deseleccionado");
-        }
-    }
-
-    function changeCombo(entra){
-        var comobo = $(entra).parents('td');
-        var bro = comobo.siblings('td');
-        var trans = $("."+entra.className);
-        var tam = trans.length;
-        var valo;
-
-        if (entra.value == 1){
-            valo=1;
-        } else if (entra.value == 2){
-            valo=2
-        }
-
-        var dis = $("."+entra.className);
-        for (var i=0; i<dis.length; i++){
-            if (dis[i].style.display == "block"){
-                if (entra.id == dis[i].id){
-                    // alert("Propio select");
-                }else{
-                    // alert("otro select");
-                    if (valo == 1) {
-                        dis[i].value = 2;
-                    }else if (valo == 2) {
-                        dis[i].value = 1;
-                    }
-                }
-            }
-            // alert(dis[i].style.display);
-        }
-    }
-
-    $("#enviar").click(function(){
-
-        var equiposChe =  $("input[type=checkbox]:checked"); 
-
-        // alert(comboTransH);
-
-        if (equiposChe.length == 16){
-            $("form#postGuarda").submit();
-        }else{
-            $("#myModalError").foundation('reveal','open');
-        }
-
-        // $("form#postGuarda").submit();
-        return false;
-    });
-
-    $("#confirmarToken").click(function(){
-
-
-        $.ajax({
-            url:'validaToken',
-            data: {'token': $("#tokenConf").val()},
-            type:"post"
-        }).done(function(res){
-            if(res==0){
-
-                alert("No hay token");
-                
-
-               
-            }else{
-
-                $("#bienvenido").css('display','block')    
-                $("#nombre").val(res[0].nombre);
-                $("#email").val(res[0].email);
-                $("#bienvenidoNombre").text(res[0].nombre);
-                 $("#myModal").foundation('reveal','close');
-               // alert("Ya Existe el token: " + res);
-
-
-
-            }
-        }).fail();
-
-        return false;
-    });
-
-
-
-
-  </script>
-
+   
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

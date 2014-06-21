@@ -4,7 +4,7 @@
 		<div class="row" style="text-align: center;">
 		<div class="large-5 columns">
       		<label>{{$equipoL}}<br>
-      			<img class="foto" src="{{asset('img/sample.png')}}"><br>
+      			<img class="foto" src="{{$imagenEquipoL}}"><br>
       			<a href="#" data-reveal-id="myModal" class="button [radius round]">Votar</a>
       		</label>
     	</div>
@@ -15,7 +15,7 @@
     	</div>
     	<div class="large-5 columns">
       		<label>{{$equipoV}}<br>
-      			<img class="foto" src="{{asset('img/sample.png')}}"><br>
+      			<img class="foto" src="{{$imagenEquipoV}}"><br>
       			<a href="#" data-reveal-id="myModal" class="button [radius round]">Votar</a>
       		</label>
     	</div>

@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.zabvio.com',
+	'host' => 'mail.pambolazo.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'soy@zabvio.com', 'name' => 'Pambolazo'),
+	'from' => array('address' => 'admin@pambolazo.com', 'name' => 'Pambolazo'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'soy@zabvio.com',
+	'username' => 'admin@pambolazo.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'zabvio7/',
+	'password' => 'admin2014!',
 
 	/*
 	|--------------------------------------------------------------------------
