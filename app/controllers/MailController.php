@@ -20,7 +20,7 @@ class MailController extends BaseController {
 
 				Mail::send('emails.pay', $data, function($message) use ($user)
 				{
-				    $message->to($user['email'], 'Pambolazo')->subject('¡Recordatorio Pago!');
+				    $message->to($user['email'], 'Pambolazo')->subject('¡Nuevas funcionalidades!');
 				});
 
 

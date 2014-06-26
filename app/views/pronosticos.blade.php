@@ -36,6 +36,7 @@
   <script src="{{ URL::asset('js/jquery.blockUI.js') }}"></script>
   <script src="{{ URL::asset('js/utils.js') }}"></script>
   <script src="{{ URL::asset('js/recuperarToken.js') }}"></script>
+  <script src="{{ URL::asset('js/ranking.js') }}"></script>
   <script src="{{ URL::asset('js/main.js') }}"></script>
   
 
@@ -108,13 +109,16 @@
     <!-- Right Nav Section -->
     <ul class="right">
 
-
         <li class="divider"></li>
-      <li><a href="#" data-reveal-id="modalRanking">Ranking</a></li>
+        <li><a href="#"><span id="rankingBu">Ranking</span></a></li>
+        @if ($isActivoOct === 0)
+            <li class="divider"></li>
+            <li><a href="eliminatorias">Octavos</a></li>
+        @endif
         <li class="divider"></li>
       <li><a href="#">Score: <span id="score"></span></a></li>
       <li class="divider"></li>
-      <li><a href="/">Salir</a></li>
+      <li><a href="/"><span id="salir">Salir</span></a></li>
     </ul>
   </section></nav>
                 
@@ -1622,15 +1626,15 @@
 
             <center>
                 <h1>Ranking</h1> 
-                <table>
+                <table id="ranking" style="width: 100%;">
   <thead>
     <tr>
-      <th width="50">Posición</th>
-      <th>Nombre</th>
-      <th width="150">Puntos</th>
+      <th width="10%" style="text-align: center;">Posición</th>
+      <th width="70%" style="text-align: center;">Nombre</th>
+      <th width="20%" style="text-align: center;">Puntos</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="bodyRanking">
     <tr>
       <td>???</td>
       <td>???</td>

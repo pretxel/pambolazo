@@ -23,12 +23,23 @@ Route::post('validaToken','HomeController@validaToken');
 
 Route::get('partidos','HomeController@showWelcome');
 
+Route::get('eliminatorias','HomeController@showEliminatorias');	
+
 Route::get('enviaCorreo','MailController@mandarEmails');
 
 Route::post('sendRecuperacion', 'TokenController@sendEmail');
 
 Route::get('token/reset/{token?}', 'TokenController@index');
 Route::post('token/update', 'TokenController@updateToken');
+
+Route::post('ranking', 'HomeController@showRanking');
+
+Route::get('deals','HomeController@deals');
+
+Route::post('sendEliminatorias', 'EliminatoriasController@sendEliminatoria');
+Route::post('getEliminatorias', 'EliminatoriasController@getEliminatoria');
+
+
 
 // Route::get('generar/{idPronos?}','HomeController@generarPdf');
 

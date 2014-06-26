@@ -15,6 +15,49 @@ class HomeController extends BaseController {
 	|
 	*/
 
+
+	public function showEliminatorias(){
+
+
+		$tiempo = Utils::calculaTiempo('2014-06-26 17:00:00');
+
+		Log::info("Dias faltantes: ".$tiempo["diasFaltantes"]);
+		Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
+
+		$diasFaltantes = $tiempo["diasFaltantes"];
+		$horasFaltantes = $tiempo["horasFaltantes"];
+		$minutosFaltantes = $tiempo["minutosFaltantes"];
+
+		$isActivo = 0;
+		$estadisticas = '';
+
+		if ($diasFaltantes > 0 || $horasFaltantes > 0 || $minutosFaltantes > 0){
+			$isActivo = 1;
+			Log::info("TODAVIA FALTA PARA LA EL");
+		}else{
+			$isActivo = 0;
+			$diasFaltantes = 0;
+			$horasFaltantes = 0;
+			$estadisticas =  Utils::generaEstadisticas();
+			Log::info("YA INICIO EL MUNDIAL");
+		}
+
+		// $elimPron = ElimPronosticos::where('')
+
+		$pronosticos = Pronosticos::all();
+		
+		$eliminatorias = Eliminatorias::all();
+
+		Log::info("COUNT: ".count($eliminatorias));
+		return View::make('eliminatoria')->with('eliminatorias',$eliminatorias)
+				->with('total',count($pronosticos))
+				->with('diasFal',$diasFaltantes." dias ".$horasFaltantes." horas")
+				->with('isActivo', $isActivo)
+				->with('estadisticas', $estadisticas);;
+
+	}
+
+
 	public function showWelcome()
 	{
 		$equipoL = "Real Madrid";
@@ -58,10 +101,7 @@ class HomeController extends BaseController {
 	public function showPronosticos()
 	{
 
-		$tiempo = Utils::calculaTiempo();
-
-		
-		
+		$tiempo = Utils::calculaTiempo('2014-06-12 15:00:00');
 		Log::info("Dias faltantes: ".$tiempo["diasFaltantes"]);
 		Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
 
@@ -83,11 +123,35 @@ class HomeController extends BaseController {
 			Log::info("YA INICIO EL MUNDIAL");
 		}
 
+
+
+		$tiempoOct = Utils::calculaTiempo('2014-06-26 16:00:00');
+		Log::info("Dias faltantes: ".$tiempo["diasFaltantes"]);
+		Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
+
+		$diasFaltantesOct = $tiempoOct["diasFaltantes"];
+		$horasFaltantesOct = $tiempoOct["horasFaltantes"];
+		$minutosFaltantesOct = $tiempoOct["minutosFaltantes"];
+
+		$isActivoOct = 0;
+
+		if ($diasFaltantesOct > 0 || $horasFaltantesOct > 0 || $minutosFaltantesOct > 0){
+			$isActivoOct = 1;
+			Log::info("TODAVIA FALATA LOS OCTAVOS");
+		}else{
+			$isActivoOct = 0;
+			$diasFaltantesOct = 0;
+			$horasFaltantesOct = 0;
+			Log::info("YA INICIO LOS OCTAVOS");
+		}
+
+
+
 		$pronosticos = Pronosticos::all();
 		return View::make('pronosticos')
 				->with('total',count($pronosticos))
 				->with('diasFal',$diasFaltantes." dias ".$horasFaltantes." horas")
-				->with('isActivo', $isActivo)
+				->with('isActivo', $isActivo)->with('isActivoOct', $isActivoOct)
 				->with('estadisticas', $estadisticas);
 	}
 
@@ -140,9 +204,9 @@ class HomeController extends BaseController {
 	public function showRanking(){
 		Utils::calificaAll();
 
-		$conPron = Pronosticos::all();
+		$conPron = Pronosticos::whereRaw("score > 0")->orderBy('score','desc')->get();
 
-		
+		return Response::json($conPron);
 
 	}
 
@@ -333,6 +397,13 @@ class HomeController extends BaseController {
 		Log::info("PRON : ".$pron);
 		$html = View::make("pdf.quiniela")->with('equipos',$pron->equipos);
     	return PDF::load($html, 'A4', 'portrait')->show();
+	}
+
+
+	public function deals(){
+		$deals = Deals::all();
+		Log::info("Deals:  " + $deals->toString);
+		return Response::json($deals);
 	}
 
 }

@@ -7,14 +7,17 @@
         <h2>Pambolazo</h2>
  
 
-        
-            Para los usuarios que quieran participar con dinero, les proporciono el numero de cuenta a la que tiene que depositar los $100.00.
+            ¡Hola!
+            <p>
+                Se realizaron nuevas funcionalidades que son: 
 
-            <br>
-            Banco: Banco Azteca
-            Numero de cuenta: 01720104283550
-            <br>
-            A partir de hoy se podrá recibir los depositos. 
+                <ul>
+                    <li>Tabla de posiciones</li>
+                    <li>Recuperar Token</li>
+                </ul>
+
+                Les recuerdo que al finalizar la fase de grupos se abrirá la quiniela para octavos de final con los correspondientes equipos.  
+            </p>
             <br>
             ¡Saludos!
 

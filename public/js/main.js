@@ -2,7 +2,70 @@ $(document).ready(function() {
 
     $(document).foundation();
 
-    $("#myModal").foundation('reveal', 'open');
+
+    var storage;
+    try {
+        if (localStorage.getItem) {
+            storage = localStorage;
+
+            if (storage.usuario) {
+
+                var user = JSON.parse(storage.usuario);
+                $("#nombre").val(user.nombre);
+                $("#email").val(user.email);
+                $("#upt").val(1);
+                $("#pronosticosId").val(user.pronosticosId);
+                $("#score").text(user.score + " pts");
+
+                $("#bienvenidoNombre").text(user.nombre);
+
+                $("#idProno").val(user.pronosticosId);
+
+                var equ = (user.equipos).split(",");
+                var pos = (user.posiciones).split(",");
+
+                if ($("#elimOctavos").val() == "8") {
+
+                     $('input[type=number]').validCampoFranz('0123456789'); 
+
+                } else {
+                    $("input[type=checkbox]").each(function(index) {
+                        console.log(index + ": " + this.value);
+                        // alert(index + ": " + this.value);
+
+                        var found = $.inArray(this.value, equ) > -1;
+                        // alert(found);
+
+                        if (found) {
+                            this.checked = true;
+                            this.disabled = true;
+                            var comobo = $(this).parents('td');
+                            var idSele = comobo[0].nextSibling.nextSibling.children[0].id;
+                            $("#" + idSele).val(pos[index]);
+                            $("#" + idSele).css('display', 'block');
+                            $("#" + idSele).attr('disabled', 'true');
+                            // alert(idSele);
+                        }
+
+                    });
+                }
+
+            } else {
+                $("#myModal").foundation('reveal', 'open');
+            }
+
+
+        }
+    } catch (e) {
+        storage = {};
+    }
+
+
+    if ($("#elimOctavos").val() == "8") {
+        obtenerElim($("#idProno").val());
+    }
+
+
     $("#confirmar").click(function() {
         nombreConf = $("#nombreConf").val();
         emailConf = $("#emailConf").val();
@@ -83,6 +146,54 @@ $(document).ready(function() {
     $(".comboTransH").change(function() {
         changeCombo(this);
     });
+
+    $(".clas1").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas2").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas3").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas4").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas5").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas6").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas7").change(function() {
+        validaOctavos(this);
+    });
+
+    $(".clas8").change(function() {
+        validaOctavos(this);
+    });
+
+    function validaOctavos(entra){
+        var bro = $(entra).nextSibling;
+
+        if (entra.value == "L"){
+
+            var comobo = $(entra).parents('tr')[0].children[6].children[0].id;
+            $("#"+comobo).attr('checked', false);
+        }else{
+             var comobo = $(entra).parents('tr')[0].children[0].children[0].id;
+            $("#"+comobo).attr('checked', false);
+
+        } 
+
+        
+    }
 
 
     function checks(entra) {
@@ -176,9 +287,22 @@ $(document).ready(function() {
                 if (res == 0) {
 
                     waitMessage("No existe el token");
-                    setTimeout($.unblockUI, 2000); 
+                    setTimeout($.unblockUI, 2000);
 
                 } else {
+
+                    usuario = {
+                        nombre: res[0].nombre,
+                        email: res[0].email,
+                        pronosticosId: res[0].idpronosticos,
+                        score: res[0].score,
+                        equipos: res[0].equipos,
+                        posiciones: res[0].posiciones
+                    };
+                    localStorage.usuario = JSON.stringify(usuario);
+
+                    // var autor = JSON.parse(localStorage.usuario);
+                    // alert(autor);
 
                     // $("#bienvenido").css('display', 'block')
                     $("#nombre").val(res[0].nombre);
@@ -210,7 +334,7 @@ $(document).ready(function() {
                             // alert(idSele);
                         }
 
-                    });;
+                    });
 
                     $("#myModal").foundation('reveal', 'close');
                     // alert("Ya Existe el token: " + res);
@@ -220,7 +344,7 @@ $(document).ready(function() {
             error: function(err) {
                 $.unblockUI();
                 waitMessage("No existe el token");
-                setTimeout($.unblockUI, 2000); 
+                setTimeout($.unblockUI, 2000);
             }
 
         });
@@ -237,6 +361,31 @@ $(document).ready(function() {
         return false;
     });
 
+
+    $("#rankingBu").click(function() {
+        rankingShow();
+        // $("#modalRecuperar").foundation('reveal', 'close');
+        $("#modalRanking").foundation('reveal', 'open');
+
+        return false;
+    });
+
+    $("#salir").click(function() {
+        localStorage.removeItem('usuario');
+    });
+
+    $("#enviarElima").click(function() {
+        enviaElimi();
+        return false;
+    });
+
+    $(".golesL").keyup(function() {
+        //alert(this.value);
+    });
+
+    $(".golesV").keyup(function() {
+        //alert(this.value);
+    });
 
     $("#estadisticasButton").click(function() {
 

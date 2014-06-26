@@ -1,10 +1,10 @@
 <?php 
 class Utils {
 	
-	public static function calculaTiempo(){
+	public static function calculaTiempo($fecha){
 
 		Log::info("CALCULA TIEMPOR");
-		$date1 = strtotime('2014-06-12 15:00:00');
+		$date1 = strtotime($fecha);
 		$date2 = time();
 		$subTime = $date1 - $date2;
 		$diasFaltantes = ($subTime/(60*60*24))%365;
@@ -306,7 +306,11 @@ class Utils {
 	public static function calificaAll(){
 
 
-		$plantilla= "1,0,2,0,0,1,2,0,1,0,2,0,0,1,0,2,2,0,1,0,1,0,2,0,1,0,0,2,1,0,2,0";
+		// $plantilla= "1,0,2,0,0,1,2,0,1,0,2,0,0,1,0,2,2,0,1,0,1,0,2,0,1,0,0,2,1,0,2,0";
+
+		$scoreDB = Score::all();
+		$plantilla = $scoreDB[0]->score;
+
 
 		$pron = Pronosticos::all();
 		Log::info("CALIFICA RESULTADOS");
