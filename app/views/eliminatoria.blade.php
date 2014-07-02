@@ -12,7 +12,10 @@
 		
 		<form>
 			<input type="hidden" id="idProno" value="">
-			<input type="hidden" id="elimOctavos" value="8">
+			<input type="hidden" id="elimOctavos" value="{{$fase}}">
+			<input type="hidden" id="nombre" value="">
+			<input type="hidden" id="email" value="">
+			<input type="hidden" id="isActivoElim" value="{{$isActivoCierre}}">
 		<table id="octavos">
 			<thead>
 				<th>Pasa</th>
@@ -27,13 +30,21 @@
 
 	@foreach ($eliminatorias as $elim)
     <tr id="{{$elim->ideliminatorias}}">
-    	<td><input type="checkbox" class="clas{{$elim->ideliminatorias}}" id="checkL{{$elim->equipoL}}" value="L"></td>
+    	<td>
+    		<div class="switch small">
+			  <input id="exampleRadioSwitch{{$elim->equipoL}}" type="radio" name="testGroup{{$elim->ideliminatorias}}">
+			  <label for="exampleRadioSwitch{{$elim->equipoL}}"></label>
+			</div>
+    		</td>
 		<td><input type="number" class="golesL" value="0" required></td>
-		<td><center><div data-tooltip class="radius success large-10" title="{{$elim->equipoL}}"><img src="{{$elim->imgL}}"></div></center></td>
+		<td><center><div data-tooltip class="radius success large-10" title="{{$elim->equipoL}}"><img src="{{ URL::asset($elim->imgL)}}"></div></center></td>
 		<td>VS</td>
-		<td><center><div data-tooltip class="radius success large-8" title="{{$elim->equipoV}}"><img src="{{$elim->imgV}}"></center></div></td>
+		<td><center><div data-tooltip class="radius success large-8" title="{{$elim->equipoV}}"><img src="{{ URL::asset($elim->imgV)}}"></center></div></td>
 		<td><input type="number" class="golesV" value="0" required></td>
-		<td><input type="checkbox" class="clas{{$elim->ideliminatorias}}" id="checkV{{$elim->equipoV}}" value="V"></td>
+		<td><div class="switch small">
+  <input id="exampleRadioSwitch{{$elim->equipoV}}" type="radio" name="testGroup{{$elim->ideliminatorias}}">
+  <label for="exampleRadioSwitch{{$elim->equipoV}}"></label>
+		</div></td>
 	</tr>
 @endforeach
 

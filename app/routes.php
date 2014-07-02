@@ -13,9 +13,15 @@
 
 // Route::get('/','HomeController@showWelcome');
 
-Route::get('/','HomeController@showPronosticos');
+Route::get('/','HomeController@showEliminatorias');
+
+Route::get('faseGrupos','HomeController@showPronosticos');
+
+Route::get('eliminatorias/{fase?}','HomeController@showEliminatorias');
 
 Route::post('pronosticos/guarda','HomeController@savePronosticos');
+
+Route::get('refreshScore', 'HomeController@refreshScore');
 
 Route::post('valida','HomeController@validarEmail');
 

@@ -11,8 +11,49 @@ class EliminatoriasController extends Controller {
 		$elimOctavos = Input::get('elimOctavos');
 		$checkedL = Input::get('checkedL');
 		$checkedV = Input::get('checkedV');
+		$email = Input::get('email');
+		$nombre = Input::get('nombre');
 
-		$resulElim =  ElimPronosticos::where('idPronostico','=',$idProno)->get();
+		if ($idProno == ""){
+		$token = Hash::make($nombre);
+
+		$pronostico = new Pronosticos;
+		$pronostico->nombre = $nombre;
+		$pronostico->token = $token;
+		$pronostico->email = $email;
+		$pronostico->equipos = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+		$pronostico->posiciones = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+
+		$pronostico->save();
+
+
+		$user = array(
+			    'email'=> $email,
+			    'name'=>'Laravelovich'
+				);
+
+				//Datos para la plantilla de correo
+				$data = array(
+				    'email' => $email,
+				    'name'  => '',
+				    'token' => $token
+				);
+
+				Mail::send('emails.welcome', $data, function($message) use ($user)
+				{
+				    $message->to($user['email'], 'Pambolazo')->subject('¡Gracias por Participar!');
+				});
+
+
+				$resulPron =  Pronosticos::where('email','=',$email)->get();
+				$idProno = $resulPron[0]->idpronosticos;
+				$resulElim =  ElimPronosticos::whereRaw('idPronostico = ? and tipoElim = ?',array($resulPron[0]->idpronosticos,$elimOctavos))->get();
+		}else{
+			$resulElim =  ElimPronosticos::whereRaw('idPronostico = ? and tipoElim = ?',array($idProno,$elimOctavos))->get();
+		}
+
+
+		
 
 
 
@@ -71,8 +112,9 @@ class EliminatoriasController extends Controller {
 	public function getEliminatoria(){
 
 		$idPron = Input::get('idPronostico');
+		$fase = Input::get('fase');
 
-		$resul =  ElimPronosticos::where('idPronostico','=',$idPron)->get();
+		$resul =  ElimPronosticos::whereRaw('idPronostico = ? and tipoElim = ?',array($idPron,$fase))->get();
 
 		Log::info("CAPTURADO: ".count($resul));
 

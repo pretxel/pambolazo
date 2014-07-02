@@ -9,6 +9,8 @@ function enviaElimi() {
 
     var idPronostico = $("#idProno").val();
     var elimOctavos = $("#elimOctavos").val();
+    var email = $("#email").val();
+    var nombre = $("#nombre").val();
 
     var i = 0;
     var valid = 0;
@@ -22,10 +24,10 @@ function enviaElimi() {
             checkedL[i] = "false";
             checkedV[i] = "false";
 
-            if (text.children[0].children[0].checked == true) {
+            if (text.children[0].children[0].children[0].checked == true) {
                 checkedL[i] = "true";
             }
-            if (text.children[6].children[0].checked == true) {
+            if (text.children[6].children[0].children[0].checked == true) {
                 checkedV[i] = "true";
             }
 
@@ -57,7 +59,7 @@ function enviaElimi() {
 
 
         $.ajax({
-            url: 'sendEliminatorias',
+            url: '/sendEliminatorias',
             data: {
                 "golesL": golesL,
                 "golesV": golesV,
@@ -65,7 +67,9 @@ function enviaElimi() {
                 "idProno": idPronostico,
                 "elimOctavos": elimOctavos,
                 "checkedL": checkedL,
-                "checkedV": checkedV
+                "checkedV": checkedV,
+                "email": email,
+                "nombre": nombre
             },
             type: "post",
 
@@ -78,7 +82,7 @@ function enviaElimi() {
 
                 var cad = "";
                 if (res) {
-                    $.growlUI('Se envio tu quiniela', '¡Octavos de Final!'); 
+                    $.growlUI('Se envio tu quiniela', 'Cuartos de Final!'); 
                     // alert(res);
                 } else {
                     waitMessage("No hay Datos");
@@ -101,12 +105,15 @@ function enviaElimi() {
 }
 
 
-function obtenerElim(idPronostico) {
+function obtenerElim(idPronostico,fase) {
+
+    var isActivoCierre = $("#isActivoElim").val();
 
     $.ajax({
-        url: 'getEliminatorias',
+        url: '/getEliminatorias',
         data: {
-            "idPronostico": idPronostico
+            "idPronostico": idPronostico,
+            "fase": fase
         },
         type: "post",
 
@@ -127,11 +134,19 @@ function obtenerElim(idPronostico) {
                     el[0].children[5].children[0].value = pronostico.golesV;
 
                     if (pronostico.checkedL == "true") {
-                        el[0].children[0].children[0].checked = true;
+                        el[0].children[0].children[0].children[0].checked = true;
                     }
 
                     if (pronostico.checkedV == "true") {
-                        el[0].children[6].children[0].checked = true;
+                        el[0].children[6].children[0].children[0].checked = true;
+                    }
+
+                    if (isActivoCierre == "0"){
+                        el[0].children[0].children[0].children[0].disabled = true;
+                        el[0].children[6].children[0].children[0].disabled = true;
+                        el[0].children[1].children[0].disabled = true;
+                        el[0].children[5].children[0].disabled = true;
+                        $("#enviarElima").attr('disabled','true');
                     }
 
                 });
@@ -146,4 +161,38 @@ function obtenerElim(idPronostico) {
 
     });
 
+}
+
+function refreshScore(idPronostico, fase){
+
+    $.ajax({
+        url: '/refreshScore',
+        data: {
+            "idProno": idPronostico,
+            "elimOctavos": fase
+        },
+        type: "get",
+
+        beforeSend: function(msg) {
+            waitMessage("Cargando...");
+        },
+        success: function(res) {
+
+            $.unblockUI();
+
+            var cad = "";
+            if (res) {
+               $("#score").text(res + " pts");
+            }else{
+                $("#score").text("0 pts");
+            }
+
+        },
+        error: function(err) {
+            $.unblockUI();
+            waitMessage("Error");
+            setTimeout($.unblockUI, 2000);
+        }
+
+    });
 }

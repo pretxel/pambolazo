@@ -15,7 +15,7 @@ $(document).ready(function() {
                 $("#email").val(user.email);
                 $("#upt").val(1);
                 $("#pronosticosId").val(user.pronosticosId);
-                $("#score").text(user.score + " pts");
+                $("#score").text(user.scoreOctavos + " pts");
 
                 $("#bienvenidoNombre").text(user.nombre);
 
@@ -24,7 +24,7 @@ $(document).ready(function() {
                 var equ = (user.equipos).split(",");
                 var pos = (user.posiciones).split(",");
 
-                if ($("#elimOctavos").val() == "8") {
+                if ($("#elimOctavos").val() == "8" || $("#elimOctavos").val() == "4") {
 
                      $('input[type=number]').validCampoFranz('0123456789'); 
 
@@ -61,8 +61,9 @@ $(document).ready(function() {
     }
 
 
-    if ($("#elimOctavos").val() == "8") {
-        obtenerElim($("#idProno").val());
+    if ($("#elimOctavos").val() == "8" || $("#elimOctavos").val() == "4") {
+        obtenerElim($("#idProno").val(), $("#elimOctavos").val());
+        refreshScore($("#idProno").val(), $("#elimOctavos").val());
     }
 
 
@@ -85,12 +86,14 @@ $(document).ready(function() {
                     $("#nombre").val(nombreConf);
                     $("#email").val(emailConf);
                     $("#bienvenidoNombre").text(nombreConf);
+                    $("#modalNuevo").foundation('reveal', 'close');
                     $("#myModal").foundation('reveal', 'close');
                 }
             }).fail();
 
 
         }
+        return false;
     });
 
     $(".reveal-modal-bg").click(function() {
@@ -296,6 +299,7 @@ $(document).ready(function() {
                         email: res[0].email,
                         pronosticosId: res[0].idpronosticos,
                         score: res[0].score,
+                        scoreOctavos: res[0].scoreOctavos,
                         equipos: res[0].equipos,
                         posiciones: res[0].posiciones
                     };
@@ -309,8 +313,8 @@ $(document).ready(function() {
                     $("#email").val(res[0].email);
                     $("#upt").val(1);
                     $("#pronosticosId").val(res[0].idpronosticos);
-                    $("#score").text(res[0].score + " pts");
-
+                    $("#score").text(res[0].scoreOctavos + " pts");
+                    $("#idProno").val(res[0].idpronosticos);
                     $("#bienvenidoNombre").text(res[0].nombre);
 
                     var equ = (res[0].equipos).split(",");
@@ -335,6 +339,11 @@ $(document).ready(function() {
                         }
 
                     });
+
+                    //Obtiene los resultados capturados y los pinta
+                    obtenerElim($("#idProno").val(), $("#elimOctavos").val());
+                    //Actualiza el Score en la fase actual
+                    refreshScore($("#idProno").val(), $("#elimOctavos").val());
 
                     $("#myModal").foundation('reveal', 'close');
                     // alert("Ya Existe el token: " + res);

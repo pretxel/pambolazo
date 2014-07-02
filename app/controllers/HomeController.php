@@ -16,10 +16,14 @@ class HomeController extends BaseController {
 	*/
 
 
-	public function showEliminatorias(){
+	public function showEliminatorias($fase=0){
 
 
-		$tiempo = Utils::calculaTiempo('2014-06-26 17:00:00');
+
+
+		$tiempo = Utils::calculaTiempo('2014-07-01 17:00:00');
+
+		$tiempoCierre = Utils::calculaTiempo('2014-07-05 10:00:00');
 
 		Log::info("Dias faltantes: ".$tiempo["diasFaltantes"]);
 		Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
@@ -33,27 +37,58 @@ class HomeController extends BaseController {
 
 		if ($diasFaltantes > 0 || $horasFaltantes > 0 || $minutosFaltantes > 0){
 			$isActivo = 1;
-			Log::info("TODAVIA FALTA PARA LA EL");
+			Log::info("TODAVIA FALTA PARA LA ELIMINATORIAS");
 		}else{
 			$isActivo = 0;
 			$diasFaltantes = 0;
 			$horasFaltantes = 0;
 			$estadisticas =  Utils::generaEstadisticas();
-			Log::info("YA INICIO EL MUNDIAL");
+			Log::info("YA EMPEZO LA ELIMINATORIAS");
 		}
+
+
+		$diasFaltantesCierre = $tiempoCierre["diasFaltantes"];
+		$horasFaltantesCierre = $tiempoCierre["horasFaltantes"];
+		$minutosFaltantesCierre = $tiempoCierre["minutosFaltantes"];
+
+		$isActivoCierre = 0;
+
+		if ($diasFaltantesCierre > 0 || $horasFaltantesCierre > 0 || $minutosFaltantesCierre > 0){
+			$isActivoCierre = 1;
+			Log::info("TODAVIA PARA QUE TERMINE EL CIERRE DE ELIMINATORIAS");
+		}else{
+			$isActivoCierre = 0;
+			$diasFaltantesCierre = 0;
+			$horasFaltantesCierre = 0;
+			Log::info("YA TERMINO LA CAPTURA DE ELIMINATORIAS");
+		}
+
 
 		// $elimPron = ElimPronosticos::where('')
 
 		$pronosticos = Pronosticos::all();
 		
-		$eliminatorias = Eliminatorias::all();
+
+		if ($fase == 8){
+			$eliminatorias = Eliminatorias::where('tipoElim',8)->get();
+			$isActivoCierre = 0;
+		}else if ($fase == 4){
+			$eliminatorias = Eliminatorias::where('tipoElim',4)->get();
+		}else{
+			$eliminatorias = Eliminatorias::where('tipoElim',4)->get();
+			$fase = 4;
+		}
+
+		
 
 		Log::info("COUNT: ".count($eliminatorias));
 		return View::make('eliminatoria')->with('eliminatorias',$eliminatorias)
 				->with('total',count($pronosticos))
-				->with('diasFal',$diasFaltantes." dias ".$horasFaltantes." horas")
+				->with('diasFal',$diasFaltantesCierre." dias ".$horasFaltantesCierre." horas")
 				->with('isActivo', $isActivo)
-				->with('estadisticas', $estadisticas);;
+				->with('isActivoCierre', $isActivoCierre)
+				->with('estadisticas', $estadisticas)
+				->with('fase', $fase);
 
 	}
 
@@ -155,6 +190,17 @@ class HomeController extends BaseController {
 				->with('estadisticas', $estadisticas);
 	}
 
+
+	public function refreshScore(){
+		$idProno = Input::get('idProno');
+		$elimOctavos = Input::get('elimOctavos');
+		$pronosticosOctavos = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($idProno, $elimOctavos))->orderBy('idEliminatoria')->get();
+		$score =  Utils::calificaElim($pronosticosOctavos, $elimOctavos);
+
+		return Response::json($score);
+	}
+
+
 	public function validarEmail(){
 
 		$email = Input::get('email');
@@ -179,8 +225,20 @@ class HomeController extends BaseController {
 
 		$score =  Utils::califica($pronosticos);
 
+		$pronosticosOctavos = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 8))->orderBy('idEliminatoria')->get();
+		$pronosticosCuartos = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 4))->orderBy('idEliminatoria')->get();
+		$pronosticosSeminsFinal = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 2))->orderBy('idEliminatoria')->get();
+
+
+		$scoreOctavos =  Utils::calificaElim($pronosticosOctavos,8);
+		$scoreCuartos =  Utils::calificaElim($pronosticosCuartos,4);
+		$scoreSemisFinal =  Utils::calificaElim($pronosticosSeminsFinal,2);
+
 		$pron = Pronosticos::find($pronosticos[0]->idpronosticos);
 		$pron->score = $score;
+		$pron->scoreOctavos = $scoreOctavos;
+		$pron->scoreCuartos = $scoreCuartos;
+		$pron->scoreSemisFinal = $scoreSemisFinal;
 		$pron->save();
 
 		$pronosticos = Pronosticos::where('token',$token)->get();
@@ -203,10 +261,15 @@ class HomeController extends BaseController {
 
 	public function showRanking(){
 		Utils::calificaAll();
+		Utils::calificaElimAll(8);
 
-		$conPron = Pronosticos::whereRaw("score > 0")->orderBy('score','desc')->get();
+		$conPron = Pronosticos::whereRaw("score >= 0")->orderBy('score','desc')->get();
+		$conOctavos = Pronosticos::whereRaw("scoreOctavos >= 0")->orderBy('scoreOctavos','desc')->get();
 
-		return Response::json($conPron);
+
+		$result=array("conPron" => json_decode($conPron), "conOctavos" => json_decode($conOctavos));
+		
+		return Response::json($result);
 
 	}
 

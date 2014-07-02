@@ -4472,7 +4472,6 @@ input[type=radio]:not(old) + label {
   margin-left: -28px;
   padding-left: 28px;
   background-image: url("http://img.fifa.com/images/layout/icons/checks-blue.png?v=130455966524658505");
-  background-color: transparent;
   background-repeat: no-repeat;
   background-position: left 0;
   line-height: 24px;

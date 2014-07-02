@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html class="js no-touch no-featurephone" lang="es" xml:lang="es">
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta charset="utf-8">
     <meta name="_requires" content="_requires" data-require="lang=es/main">
     <title>Quiniela Mundial Brasil 2014</title>
     <meta http-equiv="Content-Type" content="">
@@ -17,18 +19,18 @@
     <meta property="og:type" content="blog"/>
     <meta property="og:description" content="Participa pronosticando que equipos del Mundial pasarán a la siguiente fase y en que posiciones terminan la fase de grupos."/>
     <meta property="og:url" content="http://www.pambolazo.com"/>
-    <link type="text/css" title="standard" rel="stylesheet" href="./copa/font-face.css">
-    <link type="text/css" title="standard" rel="stylesheet" href="./copa/base.css">
-    <link type="text/css" title="standard" rel="stylesheet" href="./copa/base(1).css">
-    <script type="text/javascript" src="./copa/require-2.1.9.js">
     </script>
 
 
-
-  {{ HTML::style('css/foundation.css') }}
+ {{ HTML::style('copa/font-face.css') }}  
+  {{ HTML::style('copa/base.css') }}  
+  {{ HTML::style('copa/base(1).css') }}
   {{ HTML::style('css/normalize.css')}}
   {{ HTML::style('css/styles.css')}}    
+  {{ HTML::style('css/foundation.css') }}
+ 
 
+  <script src="{{ URL::asset('copa/require-2.1.9.js') }}"></script>
   <script src="{{ URL::asset('js/vendor/modernizr.js') }}"></script>
 
   <script src="{{ URL::asset('js/vendor/jquery.js') }}"></script>
@@ -68,8 +70,39 @@
 </style>
 </head>
 <body>
- 
+
 <nav class="top-bar" data-topbar="">
+  <ul class="title-area">
+    <!-- Title Area -->
+    <li class="name">
+
+    </li>
+    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+<!--     <li class="toggle-topbar menu-icon"><a href=""><span>Menu</span></a></li> -->
+  </ul>
+
+  
+<section class="top-bar-section">
+    <ul class="left">
+      <li><a href="/" style="font-size: 20px;">Bienvenido: <span id="bienvenidoNombre"></span></h1> </a>
+
+      </li>
+    </ul>
+    <!-- Right Nav Section -->
+    <!-- <ul class="right">
+
+
+      <li class="divider"></li>
+       <li><a href="faseGrupos">Fase de Grupos</a></li>
+        <li class="divider"></li>
+      <li><a href="#"><span id="rankingBu">Ranking</span></a></li>
+        <li class="divider"></li>
+      <li><a href="#">Score: <span id="score"></span></a></li>
+      <li class="divider"></li>
+      <li><span id="salir"><a href="/">Salir</a></span></li>
+    </ul> -->
+  </section></nav>
+  <nav class="top-bar" data-topbar="">
   <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
@@ -82,22 +115,28 @@
   
 <section class="top-bar-section">
     <ul class="left">
-      <li><a href="/" style="font-size: 20px;">Bienvenido: <span id="bienvenidoNombre"></span></h1> </a>
-
-      </li>
-      <li class="divider"></li>
+       
+       <!-- <li><a href="/faseGrupos">Fase de Grupos</a></li>
+        <li class="divider"></li>-->
+        <li><a href="/eliminatorias/8">Octavos</a></li>
+        <li class="divider"></li> 
+        <li><a href="/eliminatorias/4">Cuartos</a></li>
+        <li class="divider"></li>
+        <!-- <li><a href="faseGrupos">Semifinal y Final</a></li>
+        <li class="divider"></li> -->
     </ul>
-    <!-- Right Nav Section -->
+
     <ul class="right">
 
 
-        <li class="divider"></li>
-      <li><a href="#"><span id="rankingBu">Ranking</span></a></li>
+       <!--  <li class="divider"></li>
+      <li><a href="#"><span id="rankingBu">Ranking</span></a></li> -->
         <li class="divider"></li>
       <li><a href="#">Score: <span id="score"></span></a></li>
       <li class="divider"></li>
-      <li><a href="/">Salir</a></li>
+      <li><a href="/" id="salir">Salir</a></li>
     </ul>
+    <!-- Right Nav Section -->
   </section></nav>
  
 	
@@ -126,7 +165,7 @@
                </center>
                <h4>Intrucciones:</h4>
                <p>
-                <ul> <li>Selecciona los dos equipos de cada grupo que pasarán a la siguiente ronda.</li>
+                <ul> <li>Selecciona los equipos de cada eliminatoria que pasarán a la siguiente ronda.</li>
                
                 <li>
                     Selecciona la posición del equipo que va pasar a la suguiente ronda (1 o 2).
@@ -153,8 +192,13 @@
                 <p>NOTA: Tú alias sera publicado en los scores, por lo que no es recomendado agregar información personal.
                 </p>
                 @else
+                        @if($isActivoCierre === 0)
                         <center><h4>Ya acabo el tiempo para capturar tu quiniela.</h4>
                             <p>Sólo puedes ver las estadísticas ingresando con tu token.</p>
+                        @else
+                        <center><h4>Quiniela para Cuartos de Final</h4>
+                            <p>Agrega tu quiniela para cuartos de final con marcadores finales.</p>
+                        @endif
                              <form>
                                 <label> Token
                                 <input type="password" id="tokenConf" required>
@@ -163,8 +207,13 @@
                             </form>
 
                             <div class="row">
-                                <div class="small-6 large-6 columns"></div>
-                                <div class="small-6 large-6 columns"><a href="#" data-reveal-id="modalRecuperar">Recuperar Token</a></div>
+                                <div class="small-6 large-6 columns">
+                                  @if($isActivoCierre === 1)
+
+                                    <button class="small round button expand success" data-reveal-id="modalNuevo">Soy Nuevo</button>
+                                  @endif
+                                </div>
+                                <div class="small-6 large-6 columns"><button class="small round button expand alert" data-reveal-id="modalRecuperar">Recuperar Token</button></div>
   
                             </div>
                             
@@ -179,11 +228,16 @@
                 <div class="row">
    <h4>¿Como funciona?</h4>
                <p>
-                Obtendrás un punto por cada acierto sin importar la posición, si aciertas las posición obtienes 2 puntos por cada equipo.
-                Al terminar la fase de grupos, se te acumularán tus puntos obtenidos y se generará una tabla de posiciones.
+                El sistema de puntuación es el siguiente:
+                <ul>
+                  <li>2 puntos por partido que se acierte que pase a cuartos.</li>
+                  <li>1 puntos si se acierta en goles a favor, de uno de los dos equipos</li>
+                  <li>5 puntos si se acierta en el marcador </li>
+                </ul>
+                <p>Estos marcadores son hasta los 120 minutos si es que hay tiempo extra.</p>
                </p>
                <h4>¿Puedo cambiar mi quiniela?</h4>
-               <p>Si, a partir de Junio podrás hacerlo hasta el día en que inicie el mundial.
+               <p>Si, hasta las 10 a.m. del sábado 28 de Junio del 2014.
                </p>
             </div>
         </dd>
@@ -203,8 +257,17 @@
     </dl>
     <div class="row">
 
-        <div class="medium-6 columns"><h4>Participantes: {{$total}}</h4></div>
-        <div class="medium-6 columns"><h4>Días Faltantes: {{$diasFal}}</h4></div>
+      
+
+
+        <div class="medium-6 columns"><div data-alert class="alert-box info">
+ Participantes: {{$total}}
+  <a href="#" class="close">&times;</a>
+</div></div> 
+        <div class="medium-6 columns"><div data-alert class="alert-box info">
+Días Faltantes para cierre: {{$diasFal}}
+  <a href="#" class="close">&times;</a>
+</div></div>
 
     </div>
 </div>
@@ -237,14 +300,71 @@
 </div>
 
 
+<div id="modalNuevo" class="reveal-modal" data-reveal style="display:block;">
+           <div class="large-12 columns">
+            <center><h1>Genera tu Quiniela</h1>
+                
+               </center>
+               <h4>Intrucciones:</h4>
+               <p>
+                <ul> <li>Selecciona los equipos de cada eliminatoria que pasarán a la siguiente ronda.</li>
+               
+                <li>
+                    Agrega el marcador y en caso de empate selecciona que equipo pasa a la siguiente ronda.
+                </li>
+                <li>
+                    ¡Envia tu Quiniela!
+                </li>
+                 </ul>
+               </p>
+            
+                 </div>
 
-  <div id="modalRanking" class="reveal-modal" data-reveal style="display:block;">
-            <div class="row">
+                <div class="row">
+                    <form>
+                        <label> Correo Electrónico
+                            <input type="email" id="emailConf" required>
+                        </label> 
+                        <label> Alias ó Nombre
+                            <input type="text" id="nombreConf" required>
+                        </label>     
+                        <button type="submit" id="confirmar" class="button expand">Confirmar</button>
+                    </form>
+                </div>
+                <p>NOTA: Tú alias sera publicado en los scores, por lo que no es recomendado agregar información personal.
+                </p>
+  <a class="close-reveal-modal" data-reveal-id="myModal" >&#215;</a>
+</div>
+
+
+  <div id="modalRanking" class="reveal-modal" data-reveal style="display:block; height: 900px;">
+            
+
+    <ul class="example-orbit-content" data-orbit>
+  <li data-orbit-slide="headline-1">
+    
+    <div class="row">
     <div class="large-12 columns">
                
 
             <center>
-                <h1>Ranking</h1> 
+                <h1>Tabla de Posiciones</h1>
+                <p>Las siguientes tablas de posiciones son por cada fase del Mundial.</p>
+                <a href="#" class="button [radius round]">Mostrar Ranking</a>
+            </center>
+        </div>
+  </div>
+
+    <div class="orbit-caption"></div>
+  </li>
+  <li data-orbit-slide="headline-2">
+   
+   <div class="row">
+    <div class="large-12 columns">
+               
+
+            <center>
+                <h1>Ranking fase de grupos</h1> 
                 <table id="ranking" style="width: 100%;">
   <thead>
     <tr>
@@ -259,11 +379,30 @@
       <td>???</td>
       <td>???</td>
     </tr>
+  </tbody>
+</table>
+            </center>
+        </div>
+  </div>
+    <div class="orbit-caption"></div>
+  </li>
+  <li data-orbit-slide="headline-3" >
+    
+    <div class="row">
+    <div class="large-12 columns">
+               
+
+            <center>
+                <h1>Ranking fase Octavos de Final</h1> 
+                <table id="ranking" style="width: 100%;">
+  <thead>
     <tr>
-      <td>???</td>
-      <td>???</td>
-      <td>???</td>
+      <th width="10%" style="text-align: center;">Posición</th>
+      <th width="70%" style="text-align: center;">Nombre</th>
+      <th width="20%" style="text-align: center;">Puntos</th>
     </tr>
+  </thead>
+  <tbody id="bodyRankingOctavos">
     <tr>
       <td>???</td>
       <td>???</td>
@@ -274,6 +413,11 @@
             </center>
         </div>
   </div>
+
+    <div class="orbit-caption"></div>
+  </li>
+</ul>
+      
   <a class="close-reveal-modal">&#215;</a>
 </div>
 

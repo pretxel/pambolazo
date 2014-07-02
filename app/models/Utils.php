@@ -387,4 +387,103 @@ class Utils {
 
 	}
 
+
+	public static function calificaElim($pronosticoElim, $nivel){
+
+			// $plantilla= "1,0,2,0,0,1,2,0,1,0,2,0,0,1,0,2,2,0,1,0,1,0,2,0,1,0,0,2,1,0,2,0";
+
+			$eliminatoriasDB = Eliminatorias::where('tipoElim',$nivel)->orderBy('ideliminatorias')->get();
+
+			$score = 0;
+
+
+			for ($i =0; $i<count($pronosticoElim);$i++){
+
+
+				if ($eliminatoriasDB[$i]->checkedL != "false" || $eliminatoriasDB[$i]->checkedV != "false"){
+
+					if ($eliminatoriasDB[$i]->golesL == $pronosticoElim[$i]->golesL && $eliminatoriasDB[$i]->golesV == $pronosticoElim[$i]->golesV){
+						$score = $score + 5;
+
+					}
+					else if($eliminatoriasDB[$i]->golesL == $pronosticoElim[$i]->golesL || $eliminatoriasDB[$i]->golesV == $pronosticoElim[$i]->golesV)
+					{	
+						$score = $score + 1;
+					}
+
+
+					if ($eliminatoriasDB[$i]->checkedL == $pronosticoElim[$i]->checkedL && $eliminatoriasDB[$i]->checkedV == $pronosticoElim[$i]->checkedV){
+							$score = $score + 2;
+
+					}
+				}
+
+			}
+
+			Log::info("LAS ELIMINTATORIAS NIVEL:".$nivel." SCORE: ".$score);
+		return $score;
+
+	}
+
+	public static function calificaElimAll($nivel){
+
+
+		$eliminatoriasDB = Eliminatorias::where('tipoElim',$nivel)->orderBy('ideliminatorias')->get();
+
+		$elimPron = ElimPronosticos::where('tipoElim',$nivel)->get();
+
+		$score = 0;
+
+		$numPron = count($elimPron) / $nivel;
+		Log::info("NUMERO DE PARTICIPANTES: ".$numPron);
+		Log::info("TOTAL DE PARTICIPANTES: ".count($elimPron));
+		Log::info("NIVEL PARTICIPANTES: ".$nivel);
+
+		$k = 0;
+		for($j=0;$j<$numPron;$j++){
+			$score = 0;
+			
+			for ($i =0; $i<count($eliminatoriasDB);$i++){
+
+				if ($eliminatoriasDB[$i]->checkedL != "false" || $eliminatoriasDB[$i]->checkedV != "false"){
+
+					if ($eliminatoriasDB[$i]->golesL == $elimPron[$k]->golesL && $eliminatoriasDB[$i]->golesV == $elimPron[$k]->golesV){
+							$score = $score + 5;
+
+					}
+					else if($eliminatoriasDB[$i]->golesL == $elimPron[$k]->golesL || $eliminatoriasDB[$i]->golesV == $elimPron[$k]->golesV)
+					{	
+						$score = $score + 1;
+					}
+
+					if ($eliminatoriasDB[$i]->checkedL == $elimPron[$k]->checkedL && $eliminatoriasDB[$i]->checkedV == $elimPron[$k]->checkedV){
+						$score = $score + 2;
+
+					}
+
+				}	
+
+				$k++;
+			}
+
+
+			Log::info("IDPRON: ".$elimPron[$k-1]->idPronostico." SCORE: ".$score);
+
+			$pron = Pronosticos::find($elimPron[$k-1]->idPronostico);
+			if ($nivel == 8){
+				$pron->scoreOctavos = $score;
+			}else if ($nivel == 4){
+				$pron->scoreCuartos = $score;
+			}else if ($nivel == 2){
+				$pron->scoreSemisFinal = $score;
+			}
+			$pron->save();
+			
+
+		}
+
+
+	}
+
+
 }

@@ -58,6 +58,14 @@
     margin-left: auto;
     margin-right: auto;
     }
+
+    .primero{
+    background: rgb(140, 228, 182);
+}
+
+.segundo{
+    background: rgb(252, 159, 148);
+}
     
 </style>
 
@@ -149,7 +157,12 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+
+
+                                                
+                                                 
+
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -222,7 +235,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43938"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -355,7 +368,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43969"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -391,7 +404,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43960"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -487,7 +500,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr class="primero"> 
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -523,7 +536,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43926"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -655,7 +668,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -691,7 +704,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43930"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -824,7 +837,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -896,7 +909,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43927"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -992,7 +1005,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1100,7 +1113,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43817"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1156,7 +1169,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1264,7 +1277,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43860"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1324,7 +1337,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr class="primero">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
@@ -1360,7 +1373,7 @@
                                                 <tr class="expandcol hidden">
                                                     <td colspan="11" data-idteam="43935"></td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="segundo">
                                                     <td class="tbl-teamname teamname-nolink">
                                                         <div class="t">
                                                             <div class="t-i i-4">
