@@ -122,15 +122,15 @@
         <li class="divider"></li> 
         <li><a href="/eliminatorias/4">Cuartos</a></li>
         <li class="divider"></li>
-        <!-- <li><a href="faseGrupos">Semifinal y Final</a></li>
-        <li class="divider"></li> -->
+        <li><a href="/eliminatorias/2">Semifinal</a></li>
+        <li class="divider"></li>
     </ul>
 
     <ul class="right">
 
 
-       <!--  <li class="divider"></li>
-      <li><a href="#"><span id="rankingBu">Ranking</span></a></li> -->
+        <li class="divider"></li>
+      <li><a href="#"><span id="rankingBu">Ranking</span></a></li>
         <li class="divider"></li>
       <li><a href="#">Score: <span id="score"></span></a></li>
       <li class="divider"></li>
@@ -196,8 +196,8 @@
                         <center><h4>Ya acabo el tiempo para capturar tu quiniela.</h4>
                             <p>Sólo puedes ver las estadísticas ingresando con tu token.</p>
                         @else
-                        <center><h4>Quiniela para Cuartos de Final</h4>
-                            <p>Agrega tu quiniela para cuartos de final con marcadores finales.</p>
+                        <center><h4>Quiniela para Final y Tercer Lugar</h4>
+                            <p>Agrega tu quiniela para la final y tercer lugar con marcadores finales.</p>
                         @endif
                              <form>
                                 <label> Token
@@ -230,14 +230,14 @@
                <p>
                 El sistema de puntuación es el siguiente:
                 <ul>
-                  <li>2 puntos por partido que se acierte que pase a cuartos.</li>
-                  <li>1 puntos si se acierta en goles a favor, de uno de los dos equipos</li>
-                  <li>5 puntos si se acierta en el marcador </li>
+                  <li>5 puntos por partido que se acierte a quien gane.</li>
+                  <li>2 puntos si se acierta en goles a favor, de uno de los dos equipos</li>
+                  <li>10 puntos si se acierta en el marcador </li>
                 </ul>
                 <p>Estos marcadores son hasta los 120 minutos si es que hay tiempo extra.</p>
                </p>
                <h4>¿Puedo cambiar mi quiniela?</h4>
-               <p>Si, hasta las 10 a.m. del sábado 28 de Junio del 2014.
+               <p>Si.
                </p>
             </div>
         </dd>
@@ -337,11 +337,11 @@ Días Faltantes para cierre: {{$diasFal}}
 </div>
 
 
-  <div id="modalRanking" class="reveal-modal" data-reveal style="display:block; height: 900px;">
+  <div id="modalRanking" class="reveal-modal" data-reveal style="display:block;">
             
 
-    <ul class="example-orbit-content" data-orbit>
-  <li data-orbit-slide="headline-1">
+    <!-- <ul class="example-orbit-content" data-orbit> -->
+  <!-- <li data-orbit-slide="headline-1">
     
     <div class="row">
     <div class="large-12 columns">
@@ -356,15 +356,15 @@ Días Faltantes para cierre: {{$diasFal}}
   </div>
 
     <div class="orbit-caption"></div>
-  </li>
-  <li data-orbit-slide="headline-2">
+  </li> -->
+ <!--  <li data-orbit-slide="headline-2"> -->
    
    <div class="row">
     <div class="large-12 columns">
                
 
             <center>
-                <h1>Ranking fase de grupos</h1> 
+                <h1>Ranking fase Cuartos de Final</h1> 
                 <table id="ranking" style="width: 100%;">
   <thead>
     <tr>
@@ -373,7 +373,7 @@ Días Faltantes para cierre: {{$diasFal}}
       <th width="20%" style="text-align: center;">Puntos</th>
     </tr>
   </thead>
-  <tbody id="bodyRanking">
+  <tbody id="bodyRankingFinal">
     <tr>
       <td>???</td>
       <td>???</td>
@@ -384,9 +384,9 @@ Días Faltantes para cierre: {{$diasFal}}
             </center>
         </div>
   </div>
-    <div class="orbit-caption"></div>
-  </li>
-  <li data-orbit-slide="headline-3" >
+   <!--  <div class="orbit-caption"></div>
+  </li> -->
+ <!--  <li data-orbit-slide="headline-3" >
     
     <div class="row">
     <div class="large-12 columns">
@@ -415,8 +415,8 @@ Días Faltantes para cierre: {{$diasFal}}
   </div>
 
     <div class="orbit-caption"></div>
-  </li>
-</ul>
+  </li> -->
+<!-- </ul> -->
       
   <a class="close-reveal-modal">&#215;</a>
 </div>

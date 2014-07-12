@@ -82,7 +82,7 @@ function enviaElimi() {
 
                 var cad = "";
                 if (res) {
-                    $.growlUI('Se envio tu quiniela', 'Cuartos de Final!'); 
+                    $.growlUI('Se envio tu quiniela', 'Gran Final y Tercer Lugar!'); 
                     // alert(res);
                 } else {
                     waitMessage("No hay Datos");

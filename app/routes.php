@@ -45,7 +45,7 @@ Route::get('deals','HomeController@deals');
 Route::post('sendEliminatorias', 'EliminatoriasController@sendEliminatoria');
 Route::post('getEliminatorias', 'EliminatoriasController@getEliminatoria');
 
-
+Route::post('getAuthyID', 'EliminatoriasController@getEliminatoria');
 
 // Route::get('generar/{idPronos?}','HomeController@generarPdf');
 

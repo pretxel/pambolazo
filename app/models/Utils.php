@@ -403,18 +403,29 @@ class Utils {
 				if ($eliminatoriasDB[$i]->checkedL != "false" || $eliminatoriasDB[$i]->checkedV != "false"){
 
 					if ($eliminatoriasDB[$i]->golesL == $pronosticoElim[$i]->golesL && $eliminatoriasDB[$i]->golesV == $pronosticoElim[$i]->golesV){
-						$score = $score + 5;
+						if ($nivel == 1){
+							$score = $score + 10;
+						}else{
+							$score = $score + 5;
+						}
 
 					}
 					else if($eliminatoriasDB[$i]->golesL == $pronosticoElim[$i]->golesL || $eliminatoriasDB[$i]->golesV == $pronosticoElim[$i]->golesV)
 					{	
-						$score = $score + 1;
+						if ($nivel == 1){
+							$score = $score + 2;
+						}else{
+							$score = $score + 1;
+						}
 					}
 
 
 					if ($eliminatoriasDB[$i]->checkedL == $pronosticoElim[$i]->checkedL && $eliminatoriasDB[$i]->checkedV == $pronosticoElim[$i]->checkedV){
+						if ($nivel == 1){
+							$score = $score + 5;
+						}else{
 							$score = $score + 2;
-
+						}
 					}
 				}
 
@@ -434,7 +445,14 @@ class Utils {
 
 		$score = 0;
 
-		$numPron = count($elimPron) / $nivel;
+
+		if ($nivel == 1){
+			$numPron = count($elimPron) / 2;
+		}else{
+			$numPron = count($elimPron) / $nivel;
+		}
+
+		
 		Log::info("NUMERO DE PARTICIPANTES: ".$numPron);
 		Log::info("TOTAL DE PARTICIPANTES: ".count($elimPron));
 		Log::info("NIVEL PARTICIPANTES: ".$nivel);
@@ -448,16 +466,30 @@ class Utils {
 				if ($eliminatoriasDB[$i]->checkedL != "false" || $eliminatoriasDB[$i]->checkedV != "false"){
 
 					if ($eliminatoriasDB[$i]->golesL == $elimPron[$k]->golesL && $eliminatoriasDB[$i]->golesV == $elimPron[$k]->golesV){
-							$score = $score + 5;
 
+						if ($nivel == 1){
+							$score = $score + 10;
+						}else{
+							$score = $score + 5;
+						}
 					}
 					else if($eliminatoriasDB[$i]->golesL == $elimPron[$k]->golesL || $eliminatoriasDB[$i]->golesV == $elimPron[$k]->golesV)
 					{	
-						$score = $score + 1;
+
+						if ($nivel == 1){
+							$score = $score + 2;
+						}else{
+							$score = $score + 1;
+						}	
 					}
 
 					if ($eliminatoriasDB[$i]->checkedL == $elimPron[$k]->checkedL && $eliminatoriasDB[$i]->checkedV == $elimPron[$k]->checkedV){
-						$score = $score + 2;
+						
+						if ($nivel == 1){
+							$score = $score + 5;
+						}else{
+							$score = $score + 2;
+						}
 
 					}
 
@@ -476,6 +508,8 @@ class Utils {
 				$pron->scoreCuartos = $score;
 			}else if ($nivel == 2){
 				$pron->scoreSemisFinal = $score;
+			}else if ($nivel == 1){
+				$pron->scoreFinal = $score;
 			}
 			$pron->save();
 			

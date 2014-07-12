@@ -16,6 +16,7 @@
 			<input type="hidden" id="nombre" value="">
 			<input type="hidden" id="email" value="">
 			<input type="hidden" id="isActivoElim" value="{{$isActivoCierre}}">
+			<br>
 		<table id="octavos">
 			<thead>
 				<th>Pasa</th>
@@ -42,8 +43,8 @@
 		<td><center><div data-tooltip class="radius success large-8" title="{{$elim->equipoV}}"><img src="{{ URL::asset($elim->imgV)}}"></center></div></td>
 		<td><input type="number" class="golesV" value="0" required></td>
 		<td><div class="switch small">
-  <input id="exampleRadioSwitch{{$elim->equipoV}}" type="radio" name="testGroup{{$elim->ideliminatorias}}">
-  <label for="exampleRadioSwitch{{$elim->equipoV}}"></label>
+		  <input id="exampleRadioSwitch{{$elim->equipoV}}" type="radio" name="testGroup{{$elim->ideliminatorias}}">
+		  <label for="exampleRadioSwitch{{$elim->equipoV}}"></label>
 		</div></td>
 	</tr>
 @endforeach

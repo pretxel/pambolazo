@@ -24,7 +24,7 @@ $(document).ready(function() {
                 var equ = (user.equipos).split(",");
                 var pos = (user.posiciones).split(",");
 
-                if ($("#elimOctavos").val() == "8" || $("#elimOctavos").val() == "4") {
+                if ($("#elimOctavos").val() == "8" || $("#elimOctavos").val() == "4" || $("#elimOctavos").val() == "2" || $("#elimOctavos").val() == "1") {
 
                      $('input[type=number]').validCampoFranz('0123456789'); 
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
     }
 
 
-    if ($("#elimOctavos").val() == "8" || $("#elimOctavos").val() == "4") {
+    if ($("#elimOctavos").val() == "8" || $("#elimOctavos").val() == "4" || $("#elimOctavos").val() == "2" || $("#elimOctavos").val() == "1") {
         obtenerElim($("#idProno").val(), $("#elimOctavos").val());
         refreshScore($("#idProno").val(), $("#elimOctavos").val());
     }

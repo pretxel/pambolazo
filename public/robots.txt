@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /
+Disallow: /index.php
+Disallow: /img
+Disallow: /copa
+Disallow: /css

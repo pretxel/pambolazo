@@ -21,9 +21,9 @@ class HomeController extends BaseController {
 
 
 
-		$tiempo = Utils::calculaTiempo('2014-07-01 17:00:00');
+		$tiempo = Utils::calculaTiempo('2014-07-09 17:00:00');
 
-		$tiempoCierre = Utils::calculaTiempo('2014-07-05 10:00:00');
+		$tiempoCierre = Utils::calculaTiempo('2014-07-12 15:00:00');
 
 		Log::info("Dias faltantes: ".$tiempo["diasFaltantes"]);
 		Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
@@ -74,9 +74,15 @@ class HomeController extends BaseController {
 			$isActivoCierre = 0;
 		}else if ($fase == 4){
 			$eliminatorias = Eliminatorias::where('tipoElim',4)->get();
+			$isActivoCierre = 0;
+		}else if ($fase == 2){
+			$isActivoCierre = 0;
+			$eliminatorias = Eliminatorias::where('tipoElim',2)->get();
+		}else if ($fase == 1){
+			$eliminatorias = Eliminatorias::where('tipoElim',1)->get();
 		}else{
-			$eliminatorias = Eliminatorias::where('tipoElim',4)->get();
-			$fase = 4;
+			$eliminatorias = Eliminatorias::where('tipoElim',1)->get();
+			$fase = 1;
 		}
 
 		
@@ -228,17 +234,19 @@ class HomeController extends BaseController {
 		$pronosticosOctavos = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 8))->orderBy('idEliminatoria')->get();
 		$pronosticosCuartos = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 4))->orderBy('idEliminatoria')->get();
 		$pronosticosSeminsFinal = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 2))->orderBy('idEliminatoria')->get();
-
+		$pronosticosFinal = ElimPronosticos::whereRaw('idpronostico = ? and tipoElim = ?',  array($pronosticos[0]->idpronosticos, 1))->orderBy('idEliminatoria')->get();
 
 		$scoreOctavos =  Utils::calificaElim($pronosticosOctavos,8);
 		$scoreCuartos =  Utils::calificaElim($pronosticosCuartos,4);
 		$scoreSemisFinal =  Utils::calificaElim($pronosticosSeminsFinal,2);
+		$scoreFinal =  Utils::calificaElim($pronosticosFinal,1);
 
 		$pron = Pronosticos::find($pronosticos[0]->idpronosticos);
 		$pron->score = $score;
 		$pron->scoreOctavos = $scoreOctavos;
 		$pron->scoreCuartos = $scoreCuartos;
 		$pron->scoreSemisFinal = $scoreSemisFinal;
+		$pron->scoreFinal = $scoreFinal;
 		$pron->save();
 
 		$pronosticos = Pronosticos::where('token',$token)->get();
@@ -262,12 +270,17 @@ class HomeController extends BaseController {
 	public function showRanking(){
 		Utils::calificaAll();
 		Utils::calificaElimAll(8);
+		Utils::calificaElimAll(4);
+		Utils::calificaElimAll(2);
+		Utils::calificaElimAll(1);
 
 		$conPron = Pronosticos::whereRaw("score >= 0")->orderBy('score','desc')->get();
 		$conOctavos = Pronosticos::whereRaw("scoreOctavos >= 0")->orderBy('scoreOctavos','desc')->get();
+		$conCuartos = Pronosticos::whereRaw("scoreCuartos >= 0")->orderBy('scoreCuartos','desc')->get();
+		$conSemis = Pronosticos::whereRaw("scoreSemisFinal >= 0")->orderBy('scoreSemisFinal','desc')->get();
+		$conFinal = Pronosticos::whereRaw("scoreFinal >= 0")->orderBy('scoreFinal','desc')->get();
 
-
-		$result=array("conPron" => json_decode($conPron), "conOctavos" => json_decode($conOctavos));
+		$result=array("conPron" => json_decode($conPron), "conOctavos" => json_decode($conOctavos), "conCuartos" => json_decode($conCuartos),"conSemis" => json_decode($conSemis),"conFinal" => json_decode($conFinal));
 		
 		return Response::json($result);
 

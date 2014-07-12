@@ -1,7 +1,7 @@
 function rankingShow(){
 
 	$.ajax({
-            url: 'ranking',
+            url: '/ranking',
             data: {
                 
             },
@@ -16,6 +16,9 @@ function rankingShow(){
 
                 var cad = "";
                 var cadOct = "";
+                var cadCuart = "";
+                var cadSemis = "";
+                var cadFinal = "";
                 if (res) {
 				
                 	for (var i=0;i<res.conPron.length;i++){
@@ -36,9 +39,35 @@ function rankingShow(){
                         }
                     }
 
+                    for (var i=0;i<res.conCuartos.length;i++){
+                        if (res.conCuartos[i].scoreCuartos > 0){
+                            cadCuart = cadCuart + "<tr>"
+                            cadCuart = cadCuart + "<td>"+(i+1)+"</td><td>"+res.conCuartos[i].nombre+"</td><td>"+res.conCuartos[i].scoreCuartos+"</td>";
+                            cadCuart = cadCuart + "</tr>"
+                        }
+                    }
+
+                    for (var i=0;i<res.conSemis.length;i++){
+                        if (res.conSemis[i].scoreSemisFinal > 0){
+                            cadSemis = cadSemis + "<tr>"
+                            cadSemis = cadSemis + "<td>"+(i+1)+"</td><td>"+res.conSemis[i].nombre+"</td><td>"+res.conSemis[i].scoreSemisFinal+"</td>";
+                            cadSemis = cadSemis + "</tr>"
+                        }
+                    }
+
+                    for (var i=0;i<res.conFinal.length;i++){
+                        if (res.conFinal[i].scoreFinal > 0){
+                            cadFinal = cadFinal + "<tr>"
+                            cadFinal = cadFinal + "<td>"+(i+1)+"</td><td>"+res.conFinal[i].nombre+"</td><td>"+res.conFinal[i].scoreFinal+"</td>";
+                            cadFinal = cadFinal + "</tr>"
+                        }
+                    }
+
                 	$("#bodyRanking").html(cad);
                     $("#bodyRankingOctavos").html(cadOct);
-
+                    $("#bodyRankingCuartos").html(cadCuart);
+                    $("#bodyRankingSemis").html(cadSemis);
+                    $("#bodyRankingFinal").html(cadFinal);
 				}
 
             },

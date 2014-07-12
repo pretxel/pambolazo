@@ -49,7 +49,7 @@ class EliminatoriasController extends Controller {
 				$idProno = $resulPron[0]->idpronosticos;
 				$resulElim =  ElimPronosticos::whereRaw('idPronostico = ? and tipoElim = ?',array($resulPron[0]->idpronosticos,$elimOctavos))->get();
 		}else{
-			$resulElim =  ElimPronosticos::whereRaw('idPronostico = ? and tipoElim = ?',array($idProno,$elimOctavos))->get();
+			$resulElim =  ElimPronosticos::whereRaw('idPronostico = ? and tipoElim = ?',array($idProno,$elimOctavos))->orderBy('idelimPronosticos')->get();
 		}
 
 
