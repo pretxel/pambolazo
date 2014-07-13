@@ -56,9 +56,9 @@ function rankingShow(){
                     }
 
                     for (var i=0;i<res.conFinal.length;i++){
-                        if (res.conFinal[i].scoreFinal > 0){
+                        if (res.conFinal[i].scoreTotal > 0){
                             cadFinal = cadFinal + "<tr>"
-                            cadFinal = cadFinal + "<td>"+(i+1)+"</td><td>"+res.conFinal[i].nombre+"</td><td>"+res.conFinal[i].scoreFinal+"</td>";
+                            cadFinal = cadFinal + "<td>"+(i+1)+"</td><td>"+res.conFinal[i].nombre+"</td><td>"+res.conFinal[i].scoreTotal+"</td>";
                             cadFinal = cadFinal + "</tr>"
                         }
                     }

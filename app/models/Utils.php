@@ -346,6 +346,7 @@ class Utils {
 
 		$pronoUp = Pronosticos::find($pron[$j]->idpronosticos);
 		$pronoUp->score = $score;
+		$pronoUp->scoreTotalPambolazo = $pronoUp->score + $pronoUp->scoreOctavos + $pronoUp->scoreCuartos + $pronoUp->scoreSemisFinal + $pronoUp->scoreFinal; 
 		$pronoUp->save();
 
 			Log::info("EL SCORE ES: ".$score);
@@ -441,7 +442,7 @@ class Utils {
 
 		$eliminatoriasDB = Eliminatorias::where('tipoElim',$nivel)->orderBy('ideliminatorias')->get();
 
-		$elimPron = ElimPronosticos::where('tipoElim',$nivel)->get();
+		$elimPron = ElimPronosticos::where('tipoElim',$nivel)->orderBy('idElimPronosticos')->get();
 
 		$score = 0;
 
@@ -511,6 +512,10 @@ class Utils {
 			}else if ($nivel == 1){
 				$pron->scoreFinal = $score;
 			}
+
+			$pron->scoreTotal = $pron->scoreSemisFinal + $pron->scoreFinal;
+
+
 			$pron->save();
 			
 
