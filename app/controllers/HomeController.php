@@ -268,19 +268,22 @@ class HomeController extends BaseController {
 
 
 	public function showRanking(){
-		Utils::calificaAll();
+		
 		Utils::calificaElimAll(8);
 		Utils::calificaElimAll(4);
 		Utils::calificaElimAll(2);
 		Utils::calificaElimAll(1);
+		Utils::calificaAll();
 
 		$conPron = Pronosticos::whereRaw("score >= 0")->orderBy('score','desc')->get();
 		$conOctavos = Pronosticos::whereRaw("scoreOctavos >= 0")->orderBy('scoreOctavos','desc')->get();
 		$conCuartos = Pronosticos::whereRaw("scoreCuartos >= 0")->orderBy('scoreCuartos','desc')->get();
 		$conSemis = Pronosticos::whereRaw("scoreSemisFinal >= 0")->orderBy('scoreSemisFinal','desc')->get();
 		$conFinal = Pronosticos::whereRaw("scoreFinal >= 0")->orderBy('scoreFinal','desc')->get();
+		$conFinalTotal = Pronosticos::whereRaw("scoreTotal >= 0")->orderBy('scoreTotal','desc')->get();
 
-		$result=array("conPron" => json_decode($conPron), "conOctavos" => json_decode($conOctavos), "conCuartos" => json_decode($conCuartos),"conSemis" => json_decode($conSemis),"conFinal" => json_decode($conFinal));
+
+		$result=array("conPron" => json_decode($conPron), "conOctavos" => json_decode($conOctavos), "conCuartos" => json_decode($conCuartos),"conSemis" => json_decode($conSemis),"conFinal" => json_decode($conFinalTotal));
 		
 		return Response::json($result);
 
@@ -480,6 +483,11 @@ class HomeController extends BaseController {
 		$deals = Deals::all();
 		Log::info("Deals:  " + $deals->toString);
 		return Response::json($deals);
+	}
+
+
+	public function newVersion(){
+		return View::make('dashboard.index');
 	}
 
 }

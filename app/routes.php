@@ -13,7 +13,16 @@
 
 // Route::get('/','HomeController@showWelcome');
 
-Route::get('/','HomeController@showEliminatorias');
+Route::get('/','DashboardController@index');
+
+Route::get('/perfil','DashboardController@perfil');
+
+Route::get('/nuevaLiga','DashboardController@nuevaLiga');
+
+/* Version Vieja Pambolazo
+
+
+// Route::get('/','HomeController@showEliminatorias');
 
 Route::get('faseGrupos','HomeController@showPronosticos');
 
@@ -45,7 +54,7 @@ Route::get('deals','HomeController@deals');
 Route::post('sendEliminatorias', 'EliminatoriasController@sendEliminatoria');
 Route::post('getEliminatorias', 'EliminatoriasController@getEliminatoria');
 
-Route::post('getAuthyID', 'EliminatoriasController@getEliminatoria');
+
 
 // Route::get('generar/{idPronos?}','HomeController@generarPdf');
 
@@ -61,3 +70,5 @@ Route::post('getAuthyID', 'EliminatoriasController@getEliminatoria');
 // });
 
 // Route::get('gracias/{token?}','HomeController@gracias');
+
+*/
