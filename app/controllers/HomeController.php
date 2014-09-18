@@ -487,7 +487,7 @@ class HomeController extends BaseController {
 
 
 	public function newVersion(){
-		return View::make('dashboard.index');
+		return View::make('public.index');
 	}
 
 }

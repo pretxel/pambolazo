@@ -11,13 +11,13 @@
 |
 */
 
-// Route::get('/','HomeController@showWelcome');
+Route::get('/','HomeController@newVersion');
 
-Route::get('/','DashboardController@index');
+//Route::get('/','DashboardController@index');
 
-Route::get('/perfil','DashboardController@perfil');
+//Route::get('/perfil','DashboardController@perfil');
 
-Route::get('/nuevaLiga','DashboardController@nuevaLiga');
+//Route::get('/nuevaLiga','DashboardController@nuevaLiga');
 
 /* Version Vieja Pambolazo
 
