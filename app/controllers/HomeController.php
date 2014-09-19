@@ -490,4 +490,8 @@ class HomeController extends BaseController {
 		return View::make('dashboard.index');
 	}
 
+	public function index(){
+		return View::make('public.index');
+	}
+
 }

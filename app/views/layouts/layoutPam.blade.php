@@ -36,14 +36,14 @@
                     <li>
                         <label>Dashboard</label>
                     </li>
-                    <li><a href="index.html">Mi Dashboard</a>
+                    <li><a href="/dashborad">Mi Dashboard</a>
                     </li>
                 </ul>
                 <ul class="off-canvas-list">
                     <li>
                         <label>Perfil</label>
                     </li>
-                    <li><a href="perfil.html">Datos Personales <i class="fi-torso large"></i></a>
+                    <li><a href="/perfil">Datos Personales <i class="fi-torso large"></i></a>
                     </li>
                 </ul>
                 <ul class="off-canvas-list">

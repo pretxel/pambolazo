@@ -13,11 +13,15 @@
 
 // Route::get('/','HomeController@showWelcome');
 
-Route::get('/','DashboardController@index');
+Route::get('/','HomeController@index');
+
+Route::get('/dashborad','DashboardController@index');
 
 Route::get('/perfil','DashboardController@perfil');
 
 Route::get('/nuevaLiga','DashboardController@nuevaLiga');
+
+Route::post('/signup','LoginController@signup');
 
 /* Version Vieja Pambolazo
 

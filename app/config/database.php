@@ -61,7 +61,7 @@ return array(
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
-			'port'		=> '3309'
+			'port'		=> '3310'
 		),
 
 		'pgsql' => array(

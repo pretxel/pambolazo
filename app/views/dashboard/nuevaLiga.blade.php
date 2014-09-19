@@ -23,13 +23,13 @@
 
 
 
-                        <a href="ligaNueva.html" class="button expand" style="padding-top: 0; padding-bottom: 0;">
+                        <a href="/ligaNueva" class="button expand" style="padding-top: 0; padding-bottom: 0;">
                             <div class="step fi-eye size-48"></div>
                             <div>¿Existe Liga?</div>
                         </a>
                     </div>
                     <div class="small-6 large-2 columns">
-                        <a href="ligaNueva.html" class="button expand " style="padding-top: 0; padding-bottom: 0;">
+                        <a href="/ligaNueva" class="button expand " style="padding-top: 0; padding-bottom: 0;">
                             <div class="step fi-play-video size-48"></div>
                             <div>Crear</div>
                         </a>

@@ -36,11 +36,11 @@
                             <li class="bullet-item">Email:</li>
                             <li class="bullet-item">Equipo Favorito:</li>
                             <li class="bullet-item">
-                                <a id="firstStop" class="button" href="perfil.html">Modificar</a>
+                                <a id="firstStop" class="button" href="/perfil">Modificar</a>
                             </li>
                         </ul>
                     </div>
-                    <div id="numero1" class="small-14 large-6 columns"><a href="ligaNueva.html" class="button expand">Crea tu Liga</a>
+                    <div id="numero1" class="small-14 large-6 columns"><a href="/nuevaLiga" class="button expand">Crea tu Liga</a>
                     </div>
 
 
