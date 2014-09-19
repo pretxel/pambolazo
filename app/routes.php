@@ -11,21 +11,29 @@
 |
 */
 
-Route::get('/','HomeController@newVersion');
+Route::get('/','HomeController@coomingsoon');
+Route::get('/welcome','HomeController@newVersion');
 
 
 //Route::get('/','HomeController@index');
 
-//Route::get('/dashborad','DashboardController@index');
+Route::get('/dashborad','DashboardController@index');
+Route::get('/nuevaLiga','DashboardController@nuevaLiga');
+Route::get('/perfil','DashboardController@perfil');
 
 //Route::get('/','DashboardController@index');
 
 
-//Route::get('/perfil','DashboardController@perfil');
+Route::post('/signup','LoginController@signup');
 
-//Route::get('/nuevaLiga','DashboardController@nuevaLiga');
+Route::post('/login' , 'LoginController@login');
 
-//Route::post('/signup','LoginController@signup');
+Route::post('/perfil','ProfileController@edit');
+
+Route::get('/ligaPambo/{name}', 'LigaPamboController@valida');
+
+Route::post('/ligaPambo', 'LigaPamboController@agrega');
+
 
 /* Version Vieja Pambolazo
 

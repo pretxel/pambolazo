@@ -4,10 +4,10 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
+		"laravel/framework": "4.2.*",
 		"jenssegers/mongodb": "*",
-		 "illuminate/support": "4.1.*",
-		 "thujohn/pdf": "dev-master"
+		 "illuminate/support": "4.1.*"
+		 
 	},
 	"autoload": {
 		"classmap": [

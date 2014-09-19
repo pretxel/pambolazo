@@ -481,10 +481,14 @@ class HomeController extends BaseController {
 
 	public function deals(){
 		$deals = Deals::all();
-		Log::info("Deals:  " + $deals->toString);
+		Log::info("Deals:  ".$deals->toString);
 		return Response::json($deals);
 	}
 
+
+	public function coomingsoon(){
+		return View::make('public.index2');
+	}
 
 	public function newVersion(){
 		return View::make('public.index');
