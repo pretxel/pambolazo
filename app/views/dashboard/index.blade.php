@@ -22,7 +22,7 @@
                             <h4>Crear Liga</h4>
                             <p>Crea una liga con tus amigos.</p>
                         </li>
-                        <li data-button="Terminar" data-prev-text="Prev">
+                        <li data-button="Terminar" data-options="prev_button: false">
                             <h4>¡Listo!</h4>
                             <p>Empieza a capturar tu quiniela</p>
                         </li>
@@ -31,20 +31,52 @@
                     <div class="small-16 large-6 columns">
                         <ul class="pricing-table" data-equalizer-watch="" style="height: 374px;">
                             <li class="title">Datos Perfil</li>
-                            <li class="bullet-item">Alias:</li>
-                            <li class="bullet-item">Lugar:</li>
-                            <li class="bullet-item">Email:</li>
+                            <li class="bullet-item">Alias: {{$User->alias}}</li>
+                            <li class="bullet-item">Email: {{$User->email}}</li>
                             <li class="bullet-item">Equipo Favorito:</li>
                             <li class="bullet-item">
                                 <a id="firstStop" class="button" href="/perfil">Modificar</a>
                             </li>
                         </ul>
                     </div>
-                    <div id="numero1" class="small-14 large-6 columns"><a href="/nuevaLiga" class="button expand">Crea tu Liga</a>
+                    <div class="large-3 columns">
+                        
+                        <button> 
+                        <div class="panel">
+                            <p>
+                                <img src="{{ URL::asset('images/champions_league.png') }}">
+                            </p>
+                        </div>
+                        </button>
                     </div>
+                    <div class="large-3 columns">
+                       
+                    </div>
+
+
+                    <!-- <div id="numero1" class="small-14 large-6 columns"><a href="/nuevaLiga" class="button expand">Crea tu Liga</a>
+                    </div> -->
 
 
                 </div>
 
+
+
+@stop
+
+@section('js')
+<script src="{{ URL::asset('js/dashboard.js') }}"></script>
+<script type="text/javascript">
+    @if ($User->tuto == 0) 
+        $(document).foundation({
+          joyride: {
+            post_ride_callback : function () {
+              desactiveTuto({{$User->id}})
+            }
+          }
+         }).foundation('joyride', 'start');
+        // $(document).foundation('joyride', 'start');
+    @endif
+</script>
 @stop
             

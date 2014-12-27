@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="small-12 large-4 columns">
                             <label>Alias:
-                                <input type="text" name="alias" required pattern="[a-zA-Z]+[0-9]*">
+                                <input type="text" name="alias" required pattern="[a-zA-Z]+[0-9]*" value="{{$User->alias}}">
                             </label>
                             <small class="error">El Alias debe contener caracteres o numericos.</small>
                         </div>
@@ -34,11 +34,11 @@
                         <div class="row">
                             <div class="small-12 large-6 columns">
                                 <label>Email:
-                                    <input type="text" name="email" disabled>
+                                    <input type="text" name="email" disabled value="{{$User->email}}">
                                 </label>
                             </div>
                             <div class="small-12 large-6 columns">
-                                <label>Foto (proximamente):
+                                <label>Foto (próximamente):
                                     <input type="file" name="photo">
                                 </label>
                             </div>

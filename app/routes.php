@@ -17,16 +17,18 @@ Route::get('/welcome','HomeController@newVersion');
 
 //Route::get('/','HomeController@index');
 
-Route::get('/dashborad','DashboardController@index');
-Route::get('/nuevaLiga','DashboardController@nuevaLiga');
-Route::get('/perfil','DashboardController@perfil');
+
 
 //Route::get('/','DashboardController@index');
 
 
 Route::post('/signup','LoginController@signup');
 
-Route::post('/login' , 'LoginController@login');
+Route::post('/login' , 'LoginController@signin');
+
+Route::post('/recuperaPass', 'TokenController@sendEmail');
+
+Route::get('/logout' , 'LoginController@logout');
 
 Route::post('/perfil','ProfileController@edit');
 
@@ -34,6 +36,14 @@ Route::get('/ligaPambo/{name}', 'LigaPamboController@valida');
 
 Route::post('/ligaPambo', 'LigaPamboController@agrega');
 
+
+Route::group(array('before'=>'userauth'),function(){
+
+	Route::get('/dashborad','DashboardController@index');
+	Route::get('/nuevaLiga','DashboardController@nuevaLiga');
+	Route::get('/perfil','DashboardController@perfil');
+	Route::post('/updateTuto','HomeController@desactiveTuto');
+});
 
 /* Version Vieja Pambolazo
 

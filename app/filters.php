@@ -44,6 +44,23 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+Route::filter('userauth', function($request, $response)
+{
+	if( !Auth::check() ){
+
+        // if(!Request::Segment(2)){
+        //     return View::make('usuarios.account.login');
+        // }else{
+
+        // }
+
+
+	}else{
+		// $User = DatosPersonales::where('id_datosPersonales','=',Auth::user()->id_datosPersonales)->first();
+		View::share('User',Auth::user() );
+	}
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

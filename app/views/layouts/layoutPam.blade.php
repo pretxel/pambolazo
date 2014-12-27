@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Foundation</title>
     <link rel="stylesheet" href="{{ URL::asset('stylesheets/app.css') }}" />
-    <link rel="stylesheet" href="{{ URL::asset('foundation-icons/foundation-icons.css') }}" />
-    <script src="{{ URL::asset('bower_components/modernizr/modernizr.js') }}"></script>
+    <link rel="stylesheet" href="{{ URL::asset('css/foundation-icons/foundation-icons.css') }}" />
+    <script src="{{ URL::asset('js/vendor/modernizr.js') }}"></script>
 </head>
 
 <body>
@@ -26,8 +26,8 @@
 
                 <section class="middle tab-bar-section">
 
-                    <div class="cajaMenu"><img src="{{ URL::asset('images/triumph (1).png') }}" width="40px" style="color:white;">&nbsp;&nbsp;&nbsp;Pambolazo</div>
-                    <div class="cajaUsuario"><i class="step fi-torso size-36"></i> ..... .......</div>
+                    <div class="cajaMenu"><img src="{{ URL::asset('images/logo.png') }}" width="40px" style="color:white;">&nbsp;&nbsp;&nbsp;Pambolazo</div>
+                    <div class="cajaUsuario"><i class="step fi-torso size-36"></i> {{$User->alias}}</div>
                 </section>
             </nav>
 
@@ -71,14 +71,17 @@
         </div>
     </div>
 
-    <script src="{{ URL::asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ URL::asset('bower_components/foundation/js/foundation.min.js') }}"></script>
-    <script src="{{ URL::asset('bower_components/foundation/js/foundation/foundation.joyride.js') }}"></script>
-    <script src="{{ URL::asset('bower_components/jquery.cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ URL::asset('js/vendor/jquery.js') }}"></script>
+    <script src="{{ URL::asset('js/foundation.min.js') }}"></script>
+    <script src="{{ URL::asset('js/foundation/foundation.joyride.js') }}"></script>
+    <script src="{{ URL::asset('js/vendor/jquery.cookie.js') }}"></script>
+    <script src="{{ URL::asset('js/vendor/jquery.blockUI.js') }}"></script>
+    <script src="{{ URL::asset('js/Gina.Framework.js') }}"></script>
     <script type="text/javascript">
     $(document).foundation();
-    $(document).foundation('joyride', 'start');
+    
     </script>
+    @yield('js')
 </body>
 
 </html>

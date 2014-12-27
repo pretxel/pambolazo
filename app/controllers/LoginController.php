@@ -4,21 +4,29 @@ class LoginController extends BaseController{
 	public function signin(){
 		// se obtiene los datos del POST
 	    $userdata = array(
-	        'email'      => Input::get('email'),
-	        'password'      => Input::get('password')
+	        'email'      => Input::get('emailSe'),
+	        'password'      => Input::get('passwordSe')
 
 	    );
+
+	    $res = new ResponseGen;
 
 	    // Autentificamos los datos del usuario
 	    if ( Auth::attempt($userdata) )
 	    {
 	        //Envia la vista admin
-	        return Redirect::to('dashborad');
+	        $res->message = "exito";
+            $res->contenido = "Este es el contenido";
+            $res->codeError = 200;
+	        return Response::json($res);
 	    }
 	    else
 	    {
-	        // Envia la vista de error
-	        return Redirect::to('/');
+	    	// Envia la vista de error
+	    	$res->message = "fallo";
+            $res->contenido = "Este es el contenido";
+            $res->codeError = 400; 
+	        return Response::json($res);
 	            //->with('login_errors', true);
 	    }		
 	}
@@ -31,6 +39,7 @@ class LoginController extends BaseController{
 	public function signup(){
 		$email = Input::get('email');
 		$password = Input::get('password');
+		$res = new ResponseGen;
 
 		Log::info($password);
 
@@ -43,13 +52,25 @@ class LoginController extends BaseController{
 			$register->email = $email;
 			$register->password = Hash::make($password);
 
+			
+
+
 			if ($register->save()){
-				return Redirect::to('/dashborad');
+				$res->message = "exito";
+            	$res->contenido = "Este es el contenido";
+            	$res->codeError = 200;
+				return Response::json($res);
 			}else{
-				return Redirect::to('/');
+				$res->message = "fallo";
+            	$res->contenido = "Este es el contenido";
+            	$res->codeError = 400;
+				return Response::json($res);
 			}
 		}else{
-			return Redirect::to('/');
+			$res->message = "fallo";
+            $res->contenido = "Este es el contenido";
+            $res->codeError = 300;
+			return Response::json($res);
 		}
 
 		

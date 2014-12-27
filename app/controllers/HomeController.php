@@ -487,7 +487,7 @@ class HomeController extends BaseController {
 
 
 	public function coomingsoon(){
-		return View::make('public.index2');
+		return View::make('public.index3');
 	}
 
 	public function newVersion(){
@@ -496,6 +496,24 @@ class HomeController extends BaseController {
 
 	public function index(){
 		return View::make('public.index');
+	}
+
+	public function desactiveTuto(){
+		$idUser = Input::get('idUser');
+		$userTuto =  User::find($idUser);
+		$res = new ResponseGen;
+
+		$userTuto->tuto = 1;
+		if ($userTuto->save()){
+			$res->message = "exito";
+	        $res->contenido = "Se actualizo ".$idUser;
+	        $res->codeError = 200;
+	    }else{
+	    	$res->message = "error";
+	        $res->contenido = "";
+	        $res->codeError = 400;
+	    }
+		return Response::json($res);
 	}
 
 }

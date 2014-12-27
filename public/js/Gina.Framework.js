@@ -121,13 +121,59 @@ Gina.Ajax = function (params) {
         async: async,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
+        beforeSend: function(){
+            Gina.popupEsperar();
+        },
         success: function (result) {
+            $.unblockUI();
             callback({ Error: false, MensajeError: "", Resultado: result });
         },
         error: function (e) {
+            $.unblockUI();
             callback({ Error: true, MensajeError: e.message, Resultado: null });
             //console.log(e.message);
         }
+    });
+}
+
+Gina.validar_email = function (valor)
+    {
+        // creamos nuestra regla con expresiones regulares.
+        var filter = /[\w-\.]{3,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+        // utilizamos test para comprobar si el parametro valor cumple la regla
+        if(filter.test(valor))
+            return true;
+        else
+            return false;
+    }
+
+Gina.popupEsperar = function (){
+    $.blockUI({message:  '<h1>Cargando...</h1>',
+                 css: { 
+                        border: 'none', 
+                        padding: '15px', 
+                        backgroundColor: '#000', 
+                        '-webkit-border-radius': '10px', 
+                        '-moz-border-radius': '10px', 
+                        opacity: .5, 
+                        color: '#fff',
+                        'z-index': '1200'
+
+    } });
+}
+
+Gina.mensajePop =  function (titulo, mensaje)
+{
+    $.blockUI({ 
+                theme:     false, 
+                title:    titulo, 
+                message:  mensaje, 
+                timeout:   3000,
+                css: {
+                    'z-index': '1300',
+                    '-webkit-border-radius': '10px', 
+                    '-moz-border-radius': '10px' 
+                }
     });
 }
 
