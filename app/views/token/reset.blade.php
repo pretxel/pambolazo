@@ -43,13 +43,13 @@
 
   <form data-abide action="/token/update" method="POST">
   <div class="password-field">
-    <label>Token <small>requerido</small>
+    <label>Nueva Contraseña <small>requerido</small>
       <input type="password" name="password" id="password" required>
     </label>
     <small class="error">Tu contraseña deben contener carácteres.</small>
   </div>
   <div class="password-confirmation-field">
-    <label>Confirma el token <small>requerido</small>
+    <label>Confirma la contraseña <small>requerido</small>
       <input type="password" required pattern="[a-zA-Z]+" data-equalto="password">
     </label>
     <small class="error">El token no coincide</small>

@@ -2,11 +2,17 @@
 
 @section('content')
 	
+
+
+
+
+
 	<div class="row">
 		<div class="small-12 large-2 columns"></div>
 		<div class="small-12 large-12 columns">
-			<h1>Quiniela 1</h1>	
+			<center><h1>Quiniela 1</h1>	</center>
 			<input type="hidden" id="idQuiniela" value="{{$idQuiniela}}">
+			<input type="hidden" id="idUserQuiniela" value="{{$idUserQuiniela}}">
 			<table id="quiniela" width=100%>
 				<thead>	
 				<tr> 
@@ -23,13 +29,13 @@
 				 			<table id="marcador" width=100%>
 				 				<tr>
 				 					<td>
-				 						<div id="switchL" class="switch">
+				 						<!-- <div id="switchL" class="switch">
 										  <input id="teamSwitch{{$match[0]->idTeamL}}" type="radio" name="match{{$match[0]->idmatch}}" class="teamSwitchL">
 										  <label for="teamSwitch{{$match[0]->idTeamL}}"></label>
-										</div>
+										</div> -->
 				 					</td>
 				 					<td>
-				 						<input id="golesL" type="text" placeholder="0"> 
+				 						<input id="golesL" type="text" placeholder="0" value="{{$match[0]->golesL}}"> 
 				 					</td>
 				 				</tr>
 				 				
@@ -51,13 +57,13 @@
 				 			<table id="marcador" width=100%>
 				 				<tr>
 				 					<td>
-				 						<input id="golesV" type="text" placeholder="0">
+				 						<input id="golesV" type="text" placeholder="0" value="{{$match[0]->golesV}}">
 				 					</td>
 				 					<td>
-				 						<div id="switchV" class="switch">
+				 						<!-- <div id="switchV" class="switch">
 										  <input id="teamSwitch{{$match[0]->idTeamV}}" type="radio" name="match{{$match[0]->idmatch}}" class="teamSwitchV">
 										  <label for="teamSwitch{{$match[0]->idTeamV}}"></label>
-										</div>
+										</div> -->
 				 						 
 				 					</td>
 				 				</tr>
@@ -89,4 +95,11 @@
 @section('js')
 <script src="{{ URL::asset('js/dashboard.js') }}"></script>
 
+<script type="text/javascript">
+
+	$(document).on('close.fndtn.alert-box', function(event) {
+  		console.info('An alert box has been closed!');
+	});
+
+</script>
 @stop

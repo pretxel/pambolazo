@@ -154,7 +154,7 @@
             <center>
                 <form action="/recuperaPass" method="POST">
                     <label>Correo Electrónico</label>
-                    <input type="email" name="email" id="emailRecu">
+                    <input type="email" name="emailRecu" id="emailRecu">
                     <button type="submit" id="enviaRecu" class="button expand"><i class="fi-check"></i> Enviar</button>
 
                 </form>

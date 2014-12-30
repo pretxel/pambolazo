@@ -42,7 +42,7 @@ $("button[type=submit]").click(function(e){
 		var controller = $(form).attr('action');
  	
 
- 		if (controller=="/signup" || controller=="/login" ){
+ 		if (controller=="/signup" || controller=="/login" || controller=="/recuperaPass"){
 
 	 		Gina.Ajax({
 		        uri: $(form).attr('action'),

@@ -27,7 +27,7 @@
                 </section>
 
                 <section class="right-small">
-                    <a href="logout" style="color: white; text-align: center; vertical-align: text-top;"><i class="step fi-power size-36"></i></a>
+                    <a href="/logout" style="color: white; text-align: center; vertical-align: text-top;"><i class="step fi-power size-36"></i></a>
                 </section>
 
                 <section class="middle tab-bar-section">
@@ -80,6 +80,7 @@
     <script src="{{ URL::asset('js/vendor/jquery.js') }}"></script>
     <script src="{{ URL::asset('js/foundation.min.js') }}"></script>
     <script src="{{ URL::asset('js/foundation/foundation.joyride.js') }}"></script>
+    <script src="{{ URL::asset('js/foundation/foundation.alert.js') }}"></script>
     <script src="{{ URL::asset('js/vendor/jquery.cookie.js') }}"></script>
     <script src="{{ URL::asset('js/vendor/jquery.blockUI.js') }}"></script>
     <script src="{{ URL::asset('js/Gina.Framework.js') }}"></script>

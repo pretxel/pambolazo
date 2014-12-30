@@ -17,6 +17,7 @@ $(document).ready(function(){
 		var tablaQui =  $("#quiniela");
 		var matches = $(tablaQui[0]).find("tr[id]");
 		var idQuiniela = $("#idQuiniela").val();
+		var idUserQuiniela = $("#idUserQuiniela").val();
 
 		for (var i=0; i< matches.length; i++){
 			jsonMessage = new Object();
@@ -30,8 +31,8 @@ $(document).ready(function(){
 			jsonMessage.idMatch = matches[i].id;
 			jsonMessage.golesL = golesL.val();
 			jsonMessage.golesV = golesV.val();
-			jsonMessage.flagL = $('input[id='+flagL[0].id+']:radio:checked').length > 0
-			jsonMessage.flagV = $('input[id='+flagV[0].id+']:radio:checked').length > 0
+			// jsonMessage.flagL = $('input[id='+flagL[0].id+']:radio:checked').length > 0
+			// jsonMessage.flagV = $('input[id='+flagV[0].id+']:radio:checked').length > 0
 
 			arrayObj.push(jsonMessage);
 
@@ -44,12 +45,15 @@ $(document).ready(function(){
 				uri: "/updateQuiniela",
 		        method: "POST",
 		        data: {"data" : arrayObj,
-		        		"idQuiniela": idQuiniela },
+		        		"idQuiniela": idQuiniela,
+		        		"idUserQuiniela": idUserQuiniela },
 		        callback: function(response) {
 
-	           
+	           // $("#confirm").fadeIn('slow');
+	          	console.log(response);
+	          	Gina.mensajePop("","Quiniela Capturada");
+	            // location.reload();
 	            
-	            console.log(response);
 
 		        }
 
@@ -70,7 +74,7 @@ function desactiveTuto(idUser){
 		        data: {"idUser" : idUser },
 		        callback: function(response) {
 
-	           
+	           	
 	            
 	            console.log(response);
 

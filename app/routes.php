@@ -27,6 +27,8 @@ Route::post('/signup','LoginController@signup');
 Route::post('/login' , 'LoginController@signin');
 
 Route::post('/recuperaPass', 'TokenController@sendEmail');
+Route::get('/token/reset/{token?}', 'TokenController@index');
+Route::post('/token/update', 'TokenController@updateToken');
 
 Route::get('/logout' , 'LoginController@logout');
 
@@ -35,6 +37,7 @@ Route::post('/perfil','ProfileController@edit');
 Route::get('/ligaPambo/{name}', 'LigaPamboController@valida');
 
 Route::post('/ligaPambo', 'LigaPamboController@agrega');
+
 
 
 Route::group(array('before'=>'userauth'),function(){

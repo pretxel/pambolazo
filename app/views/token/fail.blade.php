@@ -41,7 +41,7 @@
 <body>
 	<div class="panel">
   <h5>Error en la liga</h5>
-  <p>No existe la ruta o posiblemente ya cambiaste tu token, vuelva a pedirlo.</p>
+  <p>No existe la ruta o posiblemente ya cambiaste tu contraseña, vuelve a intentarlo.</p>
 </div>
 
 </body>

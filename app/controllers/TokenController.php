@@ -4,7 +4,7 @@ class TokenController extends BaseController {
 
 	public function index($token){
 
-		$pron =  Pronosticos::whereRaw("confirmation = ? and confirmed = 'false'",array($token))->get();
+		$pron =  User::whereRaw("confirmation = ? and confirmed = 'false'",array($token))->get();
 
 		if (count($pron) > 0){
 
@@ -21,14 +21,14 @@ class TokenController extends BaseController {
 
 		$email = Input::get("emailRecu");
 
-		$validaEmail = Pronosticos::where('email', $email)->get(); 
+		$validaEmail = User::where('email', $email)->get(); 
 
 		
 
 		if (count($validaEmail) > 0){
 
 		$confirmation = str_random();
-		$pron = Pronosticos::find($validaEmail[0]->idpronosticos);
+		$pron = User::find($validaEmail[0]->id);
 		$pron->confirmation = $confirmation;
 		$pron->confirmed = "false";
 		$pron->save();
@@ -47,7 +47,7 @@ class TokenController extends BaseController {
 
 		Mail::send('emails.tokenRes', $data, function($message) use ($user)
 				{
-				    $message->to($user['email'], 'Pambolazo')->subject('¡Recupera tu Token!');
+				    $message->to($user['email'], 'Pambolazo')->subject('¡Recupera tu Contraseña!');
 				});
 
 			 return "true";
@@ -62,10 +62,10 @@ class TokenController extends BaseController {
 		$nuevoToken = Input::get('password');
 
 		Log::info("TOKEN: ".$confirmation."  PASS: ".$nuevoToken);
-		$pron =  Pronosticos::where('confirmation', $confirmation)->get();
+		$pron =  User::where('confirmation', $confirmation)->get();
 
-		$pronUpt = Pronosticos::find($pron[0]->idpronosticos);
-		$pronUpt->token = $nuevoToken;
+		$pronUpt = User::find($pron[0]->id);
+		$pronUpt->password = Hash::make($nuevoToken);
 		$pronUpt->confirmed = "true";
 		$pronUpt->save();
 
