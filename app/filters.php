@@ -49,11 +49,11 @@ Route::filter('userauth', function($request, $response)
 	if( !Auth::check() ){
 
         // if(!Request::Segment(2)){
-        //     return View::make('usuarios.account.login');
+        //     return View::make('public.index3');
         // }else{
 
         // }
-
+        return View::make('public.index3');
 
 	}else{
 		// $User = DatosPersonales::where('id_datosPersonales','=',Auth::user()->id_datosPersonales)->first();

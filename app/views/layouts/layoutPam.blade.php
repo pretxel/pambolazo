@@ -5,8 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Foundation</title>
-    <link rel="stylesheet" href="{{ URL::asset('stylesheets/app.css') }}" />
-    <link rel="stylesheet" href="{{ URL::asset('css/foundation-icons/foundation-icons.css') }}" />
+    
+    <link rel="stylesheet" href="{{ URL::asset('css/normalize.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/foundation.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/foundation-icons/foundation-icons.css') }}"/>
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ URL::asset('css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/dashboard.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ URL::asset('stylesheets/app.css') }}" /> -->
     <script src="{{ URL::asset('js/vendor/modernizr.js') }}"></script>
 </head>
 

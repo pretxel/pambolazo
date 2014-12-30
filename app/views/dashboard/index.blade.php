@@ -39,19 +39,33 @@
                             </li>
                         </ul>
                     </div>
+
+                    @foreach ($leagues as $league)
+
+
                     <div class="large-3 columns">
                         
-                        <button> 
+                        
                         <div class="panel">
                             <p>
-                                <img src="{{ URL::asset('images/champions_league.png') }}">
+                                <img id="ligaC" src="{{ URL::asset('images') }}/{{$league->image}}" idLeague="{{$league->idleague}}">
                             </p>
                         </div>
-                        </button>
+                        
                     </div>
-                    <div class="large-3 columns">
+
+                    @if(count($leagues) % 2 == 1)
+                        <div class="large-3 columns">
+                       
+                        </div>
+                    @endif
+
+                    @endforeach
+                   <!--  <div class="large-3 columns">
                        
                     </div>
+ -->
+                    
 
 
                     <!-- <div id="numero1" class="small-14 large-6 columns"><a href="/nuevaLiga" class="button expand">Crea tu Liga</a>

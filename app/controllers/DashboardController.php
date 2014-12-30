@@ -2,7 +2,11 @@
 class DashboardController extends Controller {
 
 	public function index(){
-		return View::make('dashboard.index');
+
+		$leagues = League::all();
+
+
+		return View::make('dashboard.index')->with('leagues', $leagues);
 	}
 
 	public function perfil(){
