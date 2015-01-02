@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'pambolazodb',
-			'username'  => 'root',
-			'password'  => 'root',
+			'database'  => 'moviesst_pambolazo',
+			'username'  => 'moviesst_pambo',
+			'password'  => 'pambolazo2015!',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

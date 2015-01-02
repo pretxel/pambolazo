@@ -50,7 +50,7 @@
         
       <div class="hero">
         <div class="row">
-        	<div class="large-12 intro-text">
+        	<div class="large-12 intro-pam">
             <h3 style="color: white;">¡Bienvenido a Pambolazo!<br>Accede a la plataforma para llenar tu quiniela</h3>
           </div>
           <div class="large-12 columns intro-text">
@@ -110,15 +110,24 @@
         		<div class="content" id="panel1">
         			<p style="font-size: 20px;">¡Eres nuevo! Por favor llena los campos obligatorios</p>    
 				<center>
-                <form action="/signup" method="POST">
-                    <label>Correo Electrónico*</label>
-                    <input type="email" name="email" id="emailRecu">
-                    <label>Constraseña*</label>
-                    <input type="password" name="password" id="pass">
-                    <label>Confirma Constraseña*</label>
-                    <input type="password" name="passwordConfirm" id="pass">
-                    <button type="submit" id="enviaSus" class="button expand" value="Enviar"><i class="fi-check"></i> Enviar</button>
+                <form action="/signup" method="POST" data-abide>
+                  
+                    <label>Correo Electrónico*
+                      <input type="email" name="email" id="emailRecu">
 
+                    </label>
+                    <small class="error">Correo electrónico requerido.</small>
+                    <label>Constraseña* (mínimo 5 caracteres o dígitos)
+                      <input type="password" name="password" id="password">
+
+                    </label>
+                    <small class="error">Contraseña requerida.</small>
+                    <label>Confirma Constraseña*
+                      <input type="password" name="confirm_password" id="confirm_password">
+                    </label>
+                    <small class="error">Confirma la contraseña.</small>
+                    <button type="submit" id="enviaSus" class="button expand" value="Enviar"><i class="fi-check"></i> Enviar</button>
+                 
                 </form>
             	</center>
 
@@ -129,11 +138,15 @@
         			<p style="font-size: 20px;">Accede a la plataforma</p>    
 
 		            <center>
-		                <form action="/login" method="POST">
-		                    <label>Correo Electrónico</label>
-		                    <input type="email" name="emailSe" id="emailSe">
-		                    <label>Constraseña</label>
-		                    <input type="password" name="passwordSe" id="passSe">
+		                <form action="/login" method="POST" data-abide>
+		                    <label>Correo Electrónico*
+                           <input type="email" name="emailSe" id="emailSe">
+                        </label>
+                        <small class="error">Correo Electrónico requerido.</small>
+		                    <label>Constraseña*
+                          <input type="password" name="passwordSe" id="passSe">
+                        </label>
+                        <small class="error">Contraseña requerida.</small>
 		                    <button type="submit" id="iniciaSes" class="button expand"><i class="fi-check"></i> Inicia Sesión</button>
 		                </form>
 		            </center>

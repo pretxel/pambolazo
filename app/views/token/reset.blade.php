@@ -27,7 +27,7 @@
 
   {{ HTML::style('css/foundation.css') }}
   {{ HTML::style('css/normalize.css')}}
-  {{ HTML::style('css/styles.css')}}    
+  {{ HTML::style('css/main.css')}}    
 
   <script src="{{ URL::asset('js/vendor/modernizr.js') }}"></script>
 
@@ -40,8 +40,15 @@
 </head>
 
 <body>
+<div class="row">
 
-  <form data-abide action="/token/update" method="POST">
+ <div class="small-12 medium-4 large-2 columns">
+
+ </div>
+  <div class="small-12 medium-4 large-10 columns">
+    <h2 style="background: #1775b4;color: white;text-align: center;}">Pambolazo</h2>
+    <p>Recupera tu Contraseña, debe de contener letras y dígitos</p>
+    <form data-abide action="/token/update" method="POST">
   <div class="password-field">
     <label>Nueva Contraseña <small>requerido</small>
       <input type="password" name="password" id="password" required>
@@ -50,13 +57,21 @@
   </div>
   <div class="password-confirmation-field">
     <label>Confirma la contraseña <small>requerido</small>
-      <input type="password" required pattern="[a-zA-Z]+" data-equalto="password">
+      <input type="password" required pattern="[a-zA-Z0-9]+" data-equalto="password">
     </label>
     <small class="error">El token no coincide</small>
   </div>
   <input type="hidden" name="token" value="{{$token}}">
   <button type="submit">Guardar</button>
 </form>
+ </div>
+  <div class="small-12 medium-4 large-2 columns">
+
+ </div>
+
+
+</div>
+  
 
 </body>
 

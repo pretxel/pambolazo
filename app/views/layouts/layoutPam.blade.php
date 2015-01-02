@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation</title>
+    <title>Pambolazo 2015</title>
     
     <link rel="stylesheet" href="{{ URL::asset('css/normalize.css') }}"/>
     <link rel="stylesheet" href="{{ URL::asset('css/foundation.css') }}"/>
@@ -42,7 +42,7 @@
                     <li>
                         <label>Dashboard</label>
                     </li>
-                    <li><a href="/dashborad">Mi Dashboard</a>
+                    <li><a href="/dashboard">Mi Dashboard</a>
                     </li>
                 </ul>
                 <ul class="off-canvas-list">
@@ -52,12 +52,12 @@
                     <li><a href="/perfil">Datos Personales <i class="fi-torso large"></i></a>
                     </li>
                 </ul>
-                <ul class="off-canvas-list">
+               <!--  <ul class="off-canvas-list">
                     <li>
                         <label>Ligas</label>
                     </li>
 
-                </ul>
+                </ul> -->
             </aside>
 
 

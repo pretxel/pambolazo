@@ -24,7 +24,7 @@ class LoginController extends BaseController{
 	    {
 	    	// Envia la vista de error
 	    	$res->message = "fallo";
-            $res->contenido = "Este es el contenido";
+            $res->contenido = "Upps puede que tu email o contraseña no estén correctas";
             $res->codeError = 400; 
 	        return Response::json($res);
 	            //->with('login_errors', true);
@@ -39,9 +39,30 @@ class LoginController extends BaseController{
 	public function signup(){
 		$email = Input::get('email');
 		$password = Input::get('password');
+		$confirm_password = Input::get('confirm_password');
 		$res = new ResponseGen;
 
-		Log::info($password);
+
+		 $userdata = array(
+                'email' => Input::get('email'),
+                'password' =>Input::get('password'),
+                'confirm_password' => Input::get('confirm_password')       
+            );
+
+		 $rules = array(
+                'email' => 'required|email',
+                'password' => 'required|min:5',
+                'confirm_password' => 'required|same:password'
+            );
+
+		 $validation = Validator::make($userdata, $rules);
+
+		 if ($validation->fails()){
+		 	$res->message = "exito";
+            $res->contenido = "La Contraseña no coincide";
+            $res->codeError = 301;
+            return Response::json($res);
+		 }
 
 		$usuario = User::where('email',$email)->get();
 
@@ -59,16 +80,19 @@ class LoginController extends BaseController{
 				$res->message = "exito";
             	$res->contenido = "Este es el contenido";
             	$res->codeError = 200;
+
+            	Auth::attempt($userdata); 
+
 				return Response::json($res);
 			}else{
 				$res->message = "fallo";
-            	$res->contenido = "Este es el contenido";
+            	$res->contenido = "Hubo un error al registrar";
             	$res->codeError = 400;
 				return Response::json($res);
 			}
 		}else{
 			$res->message = "fallo";
-            $res->contenido = "Este es el contenido";
+            $res->contenido = "Ya existe la cuenta";
             $res->codeError = 300;
 			return Response::json($res);
 		}

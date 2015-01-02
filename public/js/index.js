@@ -44,31 +44,38 @@ $("button[type=submit]").click(function(e){
 
  		if (controller=="/signup" || controller=="/login" || controller=="/recuperaPass"){
 
-	 		Gina.Ajax({
-		        uri: $(form).attr('action'),
-		        method: "POST",
-		        data: json,
-		        callback: function(response) {
 
-	            if (response.Error == false){
-	            	if (response.Resultado.codeError == 200){
-	            		window.location.href = "/dashborad";
-	            	}
-	            	else if (response.Resultado.codeError == 300){
-	            		Gina.mensajePop("Upss", "Usuario ya registrado");
-	            		$(form).trigger("reset");
-	            	}
+ 			if (validaCampos(json)){
 
-	            }else{
-	            	Gina.mensajePop("Upss", "Error en el servicio, intente más tarde");
-	            	$(form).trigger("reset");
-	            }
-	            
-	            console.log(response);
+		 		Gina.Ajax({
+			        uri: $(form).attr('action'),
+			        method: "POST",
+			        data: json,
+			        callback: function(response) {
 
-		        }
+		            if (response.Error == false){
+		            	if (response.Resultado.codeError == 200){
+		            		window.location.href = "/dashboard";
+		            	}
+		            	else{
+		            		Gina.mensajePop("Upss", response.Resultado.contenido);
+		            		$(form).trigger("reset");
+		            	}
 
-		    });
+		            }else{
+		            	Gina.mensajePop("Upss", "Error en el servicio, intente más tarde");
+		            	$(form).trigger("reset");
+		            }
+		            
+		            console.log(response);
+
+			        }
+
+			    });
+		    
+	 		}else{
+	 			Gina.mensajePop("Upss", "Faltan campos");
+	 		}
 
 
 
@@ -82,6 +89,21 @@ $("button[type=submit]").click(function(e){
 });
 
 
+function validaCampos(json){
+
+	var array = $.map(json, function(value, index) {
+    return [value];
+	});
+
+	for (var i = 0; i < array.length; i++) {
+		
+		if (array[i] == ""){
+			return false;
+		}
+	}
+
+	return true;
+}
 
 
 

@@ -117,11 +117,14 @@
  h1, h2, h3, h4 {
      font-family: 'PT Sans Narrow', sans-serif;
  }
-
- .crearCuenta, .ingresar{
- 	font-size: 30px;
+ .crearCuenta, .ingresar {
+     font-size: 30px;
  }
-
-#enviaSus{
-	font-size: 25px;
-} 
+ #enviaSus {
+     font-size: 25px;
+ }
+ .intro-pam {
+     padding-top: 7%;
+     color: rgba(255, 255, 255, 1);
+     text-align: center;
+ }

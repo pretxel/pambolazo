@@ -28,19 +28,29 @@
                         </li>
                     </ol>
 
-                    <div class="small-16 large-6 columns">
-                        <ul class="pricing-table" data-equalizer-watch="" style="height: 374px;">
+                    <div class="small-16 large-4 columns">
+                        <ul class="pricing-table" data-equalizer-watch="" >
                             <li class="title">Datos Perfil</li>
                             <li class="bullet-item">Alias: {{$User->alias}}</li>
                             <li class="bullet-item">Email: {{$User->email}}</li>
-                            <li class="bullet-item">Equipo Favorito:</li>
+                            <li class="bullet-item">Equipo Favorito: {{$User->equipoFav}}</li>
                             <li class="bullet-item">
                                 <a id="firstStop" class="button" href="/perfil">Modificar</a>
                             </li>
                         </ul>
                     </div>
 
-                    @foreach ($leagues as $league)
+                    <div class="small-16 large-8 columns">
+                        <!-- <h1>Ligas</h1> -->
+
+                        <ul class="pricing-table" data-equalizer-watch="" >
+                            <li class="title">Ligas</li>
+                          
+                            
+                        </ul>
+
+
+                        @foreach ($leagues as $league)
 
 
                     <div class="large-3 columns">
@@ -61,6 +71,10 @@
                     @endif
 
                     @endforeach
+
+                    </div>
+                    
+                    
                    <!--  <div class="large-3 columns">
                        
                     </div>

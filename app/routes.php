@@ -42,12 +42,13 @@ Route::post('/ligaPambo', 'LigaPamboController@agrega');
 
 Route::group(array('before'=>'userauth'),function(){
 
-	Route::get('/dashborad','DashboardController@index');
+	Route::get('/dashboard','DashboardController@index');
 	Route::get('/nuevaLiga','DashboardController@nuevaLiga');
 	Route::get('/perfil','DashboardController@perfil');
 	Route::get('/liga/{idLeague?}','QuinielaController@showQuiniela');
 	Route::post('/updateTuto','HomeController@desactiveTuto');
 	Route::post('/updateQuiniela','QuinielaController@updateQuiniela');
+	Route::post('/saveProfile','ProfileController@saveProfile');
 });
 
 /* Version Vieja Pambolazo
