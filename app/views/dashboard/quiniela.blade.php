@@ -39,11 +39,11 @@
 
 				 						@if($match[0]->enabled == 0)
 
-				 							<input id="golesL" type="text" placeholder="0" value="{{$match[0]->golesL}}" disabled> 
+				 							<input id="golesL" type="number" placeholder="0" value="{{$match[0]->golesL}}" disabled> 
 
 				 						@else
 
-				 							<input id="golesL" type="text" placeholder="0" value="{{$match[0]->golesL}}"> 
+				 							<input id="golesL" type="number" placeholder="0" value="{{$match[0]->golesL}}" required> 
 
 				 						@endif
 
@@ -72,11 +72,11 @@
 
 				 						@if($match[0]->enabled == 0)
 
-				 							<input id="golesV" type="text" placeholder="0" value="{{$match[0]->golesV}}" disabled>
+				 							<input id="golesV" type="number" placeholder="0" value="{{$match[0]->golesV}}" disabled>
 
 				 						@else
 
-				 							<input id="golesV" type="text" placeholder="0" value="{{$match[0]->golesV}}">
+				 							<input id="golesV" type="number" placeholder="0" value="{{$match[0]->golesV}}" required>
 
 				 						@endif
 

@@ -12,6 +12,21 @@ $(document).ready(function(){
 
 	$("#sendQuiniela").click(function(){
 
+
+		var validaciones = validaMarcadores() ;
+
+		if (validaciones == -1){
+			Gina.mensajePop("","Uppss, captura todos los marcadores");
+			return false;
+		}else if (validaciones == -2){
+			Gina.mensajePop("","Uppss, los marcadores no pueden ser negativos");
+			return false;
+		}else if (validaciones == -3){
+			Gina.mensajePop("","Uppss, los marcadores tiene que ser numéricos");
+			return false;
+		}
+
+
 		var arrayObj = new Array(); 
 
 		var tablaQui =  $("#quiniela");
@@ -83,4 +98,27 @@ function desactiveTuto(idUser){
 		    });
 
 
+}
+
+function validaMarcadores(){
+	var tablaQui =  $("#quiniela");
+	var inputL =  $(tablaQui).find("input[id=golesL]");
+	var inputV = $(tablaQui).find("input[id=golesV]");
+
+	for (var i = 0; i < inputL.length; i++) {
+		
+		if ($(inputL[i]).val() ==  "" || $(inputV[i]).val() == ""){
+			return -1;
+		}
+
+		if ($(inputL[i]).val() <  0 || $(inputV[i]).val() < 0){
+			return -2;
+		}
+
+		if (/^([0-9])*$/.test($(inputL[i]).val()) == false || /^([0-9])*$/.test($(inputV[i]).val()) == false){
+			return -3;
+		}
+		
+	}
+	return 1;
 }

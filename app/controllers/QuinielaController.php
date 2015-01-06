@@ -31,7 +31,7 @@ class QuinielaController extends BaseController {
 					$matchQuin->imageTV = $teamVisit->image;
 
 					$tiempo = Utils::calculaTiempo($matchQuin->date);
-					// Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
+					Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
 					// Por defecto se habilita el partido
 					$matchQuin->enabled = 1;
 
@@ -63,10 +63,10 @@ class QuinielaController extends BaseController {
 
 				for ($i=0; $i < count($footballPoolsUM); $i++) { 
 				
-					$footbalPoolsUR = FootballPoolsUserResult::find($footballPoolsUM[$i]->idfootballPools_user_match);
+					$footbalPoolsUR = FootballPoolsUserResult::find($footballPoolsUM[$i]->idfootballPoolsUserResult);
 
-					
-					if ($matches[$i][0]->idmatch === $footbalPoolsUR->idmatch){
+					Log::info("GOLES: ".$footballPoolsUM[$i]->idfootballPoolsUserResult);
+					if ($matches[$i][0]->idmatch == $footbalPoolsUR->idmatch){
 						$matches[$i][0]->golesL = $footbalPoolsUR->golesL;
 						$matches[$i][0]->golesV = $footbalPoolsUR->golesV;
 						// Log::info("GOLES: ");
