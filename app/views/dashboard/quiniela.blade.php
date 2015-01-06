@@ -10,7 +10,7 @@
 	<div class="row">
 		<div class="small-12 large-2 columns"></div>
 		<div class="small-12 large-12 columns">
-			<center><h1>Quiniela 1</h1>	</center>
+			<center><h1>{{$nameQuiniela}}</h1>	</center>
 			<input type="hidden" id="idQuiniela" value="{{$idQuiniela}}">
 			<input type="hidden" id="idUserQuiniela" value="{{$idUserQuiniela}}">
 			<table id="quiniela" width=100%>
@@ -35,7 +35,19 @@
 										</div> -->
 				 					</td>
 				 					<td>
-				 						<input id="golesL" type="text" placeholder="0" value="{{$match[0]->golesL}}"> 
+				 					
+
+				 						@if($match[0]->enabled == 0)
+
+				 							<input id="golesL" type="text" placeholder="0" value="{{$match[0]->golesL}}" disabled> 
+
+				 						@else
+
+				 							<input id="golesL" type="text" placeholder="0" value="{{$match[0]->golesL}}"> 
+
+				 						@endif
+
+
 				 					</td>
 				 				</tr>
 				 				
@@ -57,7 +69,18 @@
 				 			<table id="marcador" width=100%>
 				 				<tr>
 				 					<td>
-				 						<input id="golesV" type="text" placeholder="0" value="{{$match[0]->golesV}}">
+
+				 						@if($match[0]->enabled == 0)
+
+				 							<input id="golesV" type="text" placeholder="0" value="{{$match[0]->golesV}}" disabled>
+
+				 						@else
+
+				 							<input id="golesV" type="text" placeholder="0" value="{{$match[0]->golesV}}">
+
+				 						@endif
+
+
 				 					</td>
 				 					<td>
 				 						<!-- <div id="switchV" class="switch">
@@ -75,21 +98,12 @@
 
 				 	@endforeach
 
-				 	
-				 	
-				 
 			</table>
-
-
 			<button id="sendQuiniela" class="expand">Guardar</button>
 
 		</div>
 		<div class="small-12 large-2 columns"></div>
-
-
 	</div>
-	
-	
 @stop
 
 @section('js')

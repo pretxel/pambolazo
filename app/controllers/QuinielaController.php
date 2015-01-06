@@ -9,15 +9,12 @@ class QuinielaController extends BaseController {
 
 		$footballPoolsGet = FootballPools::where("idLeague", $idLeague)->get();
 
-
+		//Valido si existe la liga
 		if (count($footballPoolsGet) != 0){
 
-		
-
-
+			//Se valida si esta disponible
 			if ($footballPoolsGet[0]->status == 1){
 				$teams = FootballPoolsMatch::where('idFootballPools', $idLeague)->get();
-
 
 				if (count($teams) > 0){
 
@@ -33,22 +30,34 @@ class QuinielaController extends BaseController {
 					$matchQuin->imageTL = $teamLocal->image;
 					$matchQuin->imageTV = $teamVisit->image;
 
+					$tiempo = Utils::calculaTiempo($matchQuin->date);
+					// Log::info("DIAS: ".$tiempo["diasFaltantes"]." HORAS: ".$tiempo["horasFaltantes"]."MINUTOS: ".$tiempo["minutosFaltantes"]);
+					// Por defecto se habilita el partido
+					$matchQuin->enabled = 1;
+
+					//Se bloquea doce horas antes de cada partido programado
+					if ($tiempo["diasFaltantes"] == 0 && $tiempo["horasFaltantes"] <= 12){
+						$matchQuin->enabled = 0;
+					}
+
 					$matches[$i] = array();
 					array_push($matches[$i], $matchQuin);
 
+					}
 				}
 
-			}
 
-			Log::info("Partidos:  ".implode(" ",$matches[0]));
+
+			// Log::info("Partidos:  ".implode(" ",$matches[0]));
 			Log::info("idQuiniela:  ".$footballPoolsGet[0]->idfootballPools);
 			
+			//Se consulta si tiene la quiniela capturada
 			$footballPoolsU =  FootballPoolsUser::whereRaw("idfootballPools = ? and idUser = ? ", array($footballPoolsGet[0]->idfootballPools,Auth::id() ))->get();
 
 			$idFootBallUser = 0;
+			//Valida si tiene quiniela capturada y recupera los datos para pintarla
 			if (count($footballPoolsU) > 0){
 				$idFootBallUser = $footballPoolsU[0]->idfootballPoolsUser;
-
 
 				$footballPoolsUM = FootballPoolsUserMatch::where('idfootballPoolsUser',$idFootBallUser)->get();
 
@@ -60,12 +69,9 @@ class QuinielaController extends BaseController {
 					if ($matches[$i][0]->idmatch === $footbalPoolsUR->idmatch){
 						$matches[$i][0]->golesL = $footbalPoolsUR->golesL;
 						$matches[$i][0]->golesV = $footbalPoolsUR->golesV;
-						Log::info("GOLES: ");
+						// Log::info("GOLES: ");
 					}
-
-					
-					
-					
+	
 				}
 
 
@@ -75,7 +81,8 @@ class QuinielaController extends BaseController {
 			return View::make('dashboard.quiniela')
 					->with('matches',$matches)
 					->with('idQuiniela', $footballPoolsGet[0]->idfootballPools)
-					->with('idUserQuiniela', $idFootBallUser);
+					->with('idUserQuiniela', $idFootBallUser)
+					->with('nameQuiniela', $footballPoolsGet[0]->name);
 
 			}
 

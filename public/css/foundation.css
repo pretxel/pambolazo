@@ -2651,6 +2651,17 @@ meta.foundation-mq-topbar {
     overflow: hidden; }
 
 /* Panels */
+
+.panel2 {
+border-style: solid;
+  border-width: 1px;
+  border-color: #FFFFFF;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  background: #FFFFFF;
+  color: #000000; }
+
+
 .panel {
   border-style: solid;
   border-width: 1px;

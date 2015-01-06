@@ -53,21 +53,38 @@
                         @foreach ($leagues as $league)
 
 
-                    <div class="large-3 columns">
+                    <div class="large-4 columns">
                         
-                        
+                        @if($league->status == 1)
                         <div class="panel">
                             <p>
-                                <img id="ligaC" src="{{ URL::asset('images') }}/{{$league->image}}" idLeague="{{$league->idleague}}">
+                                <img class="ligaC" src="{{ URL::asset('images') }}/{{$league->image}}" idLeague="{{$league->idleague}}">
                             </p>
                         </div>
+                        @else
+
+                        <div class="panel2">
+                            <p>
+                                <img  src="{{ URL::asset('images') }}/{{$league->image}}" idLeague="{{$league->idleague}}">
+                                <h4>Próximamente</h4>
+                            </p>
+                        </div>
+
+                        @endif
                         
                     </div>
 
-                    @if(count($leagues) % 2 == 1)
-                        <div class="large-3 columns">
+                    @if(count($leagues) % 3 == 2)
+                        <div class="large-4 columns">
                        
                         </div>
+                    @elseif(count($leagues) % 3 == 1)
+                    <div class="large-4 columns">
+                       
+                    </div>
+                    <div class="large-4 columns">
+                       
+                    </div>
                     @endif
 
                     @endforeach

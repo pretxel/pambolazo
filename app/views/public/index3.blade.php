@@ -67,7 +67,7 @@
           <h4>¿Que es Pambolazo?</h4>
           <p>Es un proyecto independiente de quinielas enfocado al futbol soccer donde podrás competir con tus amigos.</p>
           <p>
-          	En esta plataforma se publicaran partidos de las ligas más importantes para que puedas llenar los marcadores de los partidos, la plataforma tiene un sistema de puntos.
+          	En esta plataforma se publicarán partidos de las ligas más importantes para que puedas llenar los marcadores de los partidos y de esta forma ganar puntos.
           </p>
         </div>
         <div class="medium-6 large-4 columns">
@@ -87,10 +87,10 @@
             </div>
             <div class="large-6 columns">
               <ul class="inline-list right">
-                <li><a href="#">FAQ</a></li>
+               <!--  <li><a href="#">FAQ</a></li>
                 <li><a href="#">Privacidad</a></li>
                 <li><a href="#">Suscribir</a></li>
-              </ul>
+              </ul> -->
             </div>
           </div>
         </div>

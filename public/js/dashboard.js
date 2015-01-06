@@ -1,7 +1,7 @@
 $(document).ready(function(){ 
 
 
-	$("#ligaC").click(function(){
+	$(".ligaC").click(function(){
 
 		var idLeague =  $(this).attr("idLeague");
 

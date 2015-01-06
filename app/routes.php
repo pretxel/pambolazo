@@ -40,6 +40,8 @@ Route::post('/ligaPambo', 'LigaPamboController@agrega');
 
 
 
+
+
 Route::group(array('before'=>'userauth'),function(){
 
 	Route::get('/dashboard','DashboardController@index');
@@ -49,6 +51,16 @@ Route::group(array('before'=>'userauth'),function(){
 	Route::post('/updateTuto','HomeController@desactiveTuto');
 	Route::post('/updateQuiniela','QuinielaController@updateQuiniela');
 	Route::post('/saveProfile','ProfileController@saveProfile');
+
+
+	Route::get('/viewEmail', function()
+	{
+	    return View::make('emails.welcome');
+	});
+
+	Route::get('/mandaViewEmail', 'MailController@mandaWelcomeTodos');
+
+
 });
 
 /* Version Vieja Pambolazo
