@@ -53,12 +53,12 @@ Route::group(array('before'=>'userauth'),function(){
 	Route::post('/saveProfile','ProfileController@saveProfile');
 
 
-	Route::get('/viewEmail', function()
-	{
-	    return View::make('emails.welcome');
-	});
+	// Route::get('/viewEmail', function()
+	// {
+	//     return View::make('emails.welcome');
+	// });
 
-	Route::get('/mandaViewEmail', 'MailController@mandaWelcomeTodos');
+	// Route::get('/mandaViewEmail', 'MailController@mandaWelcomeTodos');
 
 
 });
