@@ -52,6 +52,7 @@ Route::group(array('before'=>'userauth'),function(){
 	Route::post('/updateQuiniela','QuinielaController@updateQuiniela');
 	Route::post('/saveProfile','ProfileController@saveProfile');
 
+	Route::get('/calificar', 'QuinielaController@calificar');
 
 	// Route::get('/viewEmail', function()
 	// {

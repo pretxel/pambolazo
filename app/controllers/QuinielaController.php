@@ -173,4 +173,8 @@ class QuinielaController extends BaseController {
 
  	}
 
+ 	public function calificar(){
+ 		EngineScore::ScoreMatches(2);
+ 	}
+
 }
