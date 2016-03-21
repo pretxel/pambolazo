@@ -19,3 +19,13 @@ It is a betting pool platform, specifically for soccer.
 
 
 ## Configuration
+
+### Generate documentation
+We generate the documentation with this package [L5-Swagger](https://github.com/DarkaOnLine/L5-Swagger).
+
+#### See the commands below
+- Run **l5-swagger:publish** to publish everything
+- Run **l5-swagger:publish-config** to publish configs (config/l5-swagger.php)
+- Run **l5-swagger:publish-assets** to publish swagger-ui to your public folder (public/vendor/l5-swagger)
+- Run **l5-swagger:publish-views** to publish views (resources/views/vendor/l5-swagger)
+- Run **l5-swagger:generate** to generate docs or set generate_always param to true in your config or .env file

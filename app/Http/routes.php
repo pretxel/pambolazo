@@ -11,6 +11,31 @@
 |
 */
 
+/**
+ * @SWG\Swagger(
+ *     schemes={"http","https"},
+ *     host="api.host.com",
+ *     basePath="/",
+ *     @SWG\Info(
+ *         version="1.0.0",
+ *         title="Pambolazo API",
+ *         description="",
+ *         termsOfService="",
+ *         @SWG\Contact(
+ *             email="pretxel100@gmail.com"
+ *         ),
+ *         @SWG\License(
+ *             name="MIT"
+ *         )
+ *     ),
+ *     @SWG\ExternalDocumentation(
+ *         description="Find out more about my website",
+ *         url="http://www.example.com"
+ *     )
+ * )
+ */
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,4 +53,10 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
