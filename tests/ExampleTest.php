@@ -11,9 +11,16 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+
+
+
+    public function testPambo()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $this->visit('http://homestead.app/login');
+        $this->type('pretxel100@gmail.com', 'email');
+        $this->type('123456', 'password');
+        $this->press('Login');
+        $this->seePageIs('http://homestead.app/home');
+        $this->see('You are logged in!');
     }
 }

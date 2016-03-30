@@ -56,10 +56,15 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
+    Route::get('/team', 'HomeController@team');
+
+    Route::get('/teams', 'HomeController@teams');
+
+    Route::post('/save_team', 'HomeController@save_team');
 
 
 });
 
 Route::group(['prefix' => 'api/v1'], function () {
-  Route::resource('team', 'TeamController');
+  Route::resource('team', 'Api\TeamController');
 });
