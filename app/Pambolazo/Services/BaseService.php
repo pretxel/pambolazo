@@ -22,13 +22,16 @@ class BaseService
     return $this->manager->save($data);
   }
 
-  public function update()
+  public function update($data, $id)
   {
+      $model = $this->manager->getId($id);
+      $this->manager->setModel($model);
       return $this->manager->update($data);
   }
 
-  public function delete()
+  public function delete($model)
   {
+    $this->manager->setModel($model);
     return $this->manager->delete();
   }
 
@@ -37,9 +40,9 @@ class BaseService
     return $this->manager->getAll();
   }
 
-  public function getId()
+  public function getId($id)
   {
-
+    return $this->manager->getId($id);
   }
 
 }

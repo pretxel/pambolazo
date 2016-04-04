@@ -36,10 +36,10 @@
  */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'Controller@welcome');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -53,18 +53,19 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-
     Route::get('/home', 'HomeController@index');
 
-    Route::get('/team', 'HomeController@team');
+    require __DIR__.'/routes-team.php';
 
-    Route::get('/teams', 'HomeController@teams');
-
-    Route::post('/save_team', 'HomeController@save_team');
+    require __DIR__.'/routes-match.php';
 
 
 });
 
+
+
 Route::group(['prefix' => 'api/v1'], function () {
   Route::resource('team', 'Api\TeamController');
+
+  Route::resource('match', 'Api\MatchController');
 });

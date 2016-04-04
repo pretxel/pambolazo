@@ -42,5 +42,12 @@ class BaseRepository
     $this->model->update();
   }
 
+  public function delete($model){
+    return $model->delete();
+  }
+
+  public function setModel($model){
+    $this->model = $model;
+  }
 
 }

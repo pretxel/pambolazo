@@ -29,7 +29,10 @@ abstract class BaseValidator
 
     $validation = \Validator::make($data, $rules);
 
-    if ($validation->passes()) return true;
+    if ($validation->passes())
+    {
+      return true;
+    }
 
     $this->errors = $validation->messages();
 

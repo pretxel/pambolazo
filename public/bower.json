@@ -1,0 +1,31 @@
+{
+  "name": "pambolazo",
+  "homepage": "https://github.com/pretxel/pambolazo",
+  "description": "",
+  "main": "index.php",
+  "moduleType": [],
+  "keywords": [
+    "soccer",
+    "pools"
+  ],
+  "authors": [
+    "Edsel Serrano <pretxel100@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "carousel-3d": "^0.2.2",
+    "datatables.net": "^1.10.11",
+    "datatables.net-bs": "^1.10.11",
+    "bootstrap": "^3.3.6",
+    "modernizr-min": "^3.2.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+  }
+}

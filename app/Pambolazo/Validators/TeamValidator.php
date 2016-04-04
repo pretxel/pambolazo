@@ -7,7 +7,7 @@ class TeamValidator extends BaseValidator
 {
   protected $rules = array(
     'name' => 'required',
-    'logo' => 'required'
+    'slug' => 'required'
   );
 
   public function __construct(Model $Model)

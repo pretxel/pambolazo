@@ -1,0 +1,1 @@
+{"version":3,"sources":["home.css","home.scss"],"names":[],"mappings":"AAAA;ECGE,aAAa;EACb,iBAAiB,EAClB","file":"home.css","sourcesContent":["[data-carousel-3d] {\n  border: none;\n  background: none; }\n","// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\n[data-carousel-3d]\n{\n  border: none;\n  background: none;\n}\n"],"sourceRoot":"/source/"}

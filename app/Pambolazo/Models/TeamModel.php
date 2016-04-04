@@ -12,7 +12,13 @@ class TeamModel extends BaseModel
 
   protected $table = 'teams';
 
-  protected $fillable = ['id', 'name', 'logo'];
+  protected $fillable = ['id', 'name', 'slug', 'logo'];
 
   // protected $hidden = ['deleted_at'];
+
+  public function team()
+  {
+    return $this->hasOne('Pambolazo\Models\MatchModel');
+  }
+
 }

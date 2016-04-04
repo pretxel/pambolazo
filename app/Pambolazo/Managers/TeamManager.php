@@ -18,7 +18,7 @@ class TeamManager extends BaseManager
     $data = $this->data;
 
     if (isset($data['name'])) {
-      $data['name'] = str_slug($data['name']);
+      $data['slug'] = str_slug($data['name']);
     }
     $this->data = $data;
 

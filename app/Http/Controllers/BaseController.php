@@ -35,7 +35,7 @@ class BaseController extends Controller
   public function store(Request $request)
   {
     $data = Input::all();
-
+    
     $response = $this->service->save($data);
 
     if ($response instanceof Model) {
@@ -80,9 +80,7 @@ class BaseController extends Controller
       return response()->json(['error' => 'Entity not found'] , 404);
     }
 
-    $this->manager->setEntity($resource);
-
-    $response = $this->manager->delete();
+    $response = $this->service->delete($resource);
 
     if($response){
 

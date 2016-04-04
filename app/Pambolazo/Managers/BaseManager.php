@@ -20,6 +20,10 @@ class BaseManager
     $this->repository = $Repository;
   }
 
+  public function getId($id){
+    return $this->repository->findById($id);
+  }
+
   public function getAll(){
     return $this->repository->all();
   }
@@ -29,7 +33,7 @@ class BaseManager
     $this->data = $data;
 
     $this->prepareData();
-
+    Log:info($this->data);
     $isValid = $this->validator->isValid($this->data);
 
     if ($isValid) {
@@ -56,8 +60,9 @@ class BaseManager
 
     $isValid = $this->validator->isValid($this->data);
 
-    if ($isValid) {
 
+    if ($isValid) {
+      $this->repository->setModel($this->model);
       $this->repository->update($this->data);
 
       return $this->model;
@@ -74,7 +79,7 @@ class BaseManager
   {
     if($this->model->exists)
     {
-      return $this->model->delete();
+      return $this->repository->delete($this->model);
     }
     else
     {
