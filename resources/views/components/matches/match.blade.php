@@ -8,9 +8,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-heading">Match</div>
+      @if (isset($error))
+      <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{$error}}</strong>
+      </div>
+      @endif
 
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="text-center">MATCH</div>
+        </div>
         <div class="panel-body">
           @if (isset($error))
           <div class="alert alert-danger" role="alert">{{$error}}</div>
@@ -23,17 +34,13 @@
               {!! csrf_field() !!}
               <div class="form-group col-md-6">
                 <label for="exampleInputEmail1">Local Team</label>
-                <select name="local_team_id" class="form-control">
-                  <option value="36">36</option>
-                  <option value="37">37</option>
+                <select id="local_team" name="local_team_id" class="form-control">
                 </select>
 
               </div>
               <div class="form-group col-md-6">
                 <label for="exampleInputEmail1">Visitor Team</label>
-                <select name="visitor_team_id" class="form-control">
-                  <option value="36">36</option>
-                  <option value="37">37</option>
+                <select id="visitor_team" name="visitor_team_id" class="form-control">
                 </select>
               </div>
               <div class="form-group col-md-12">
@@ -57,7 +64,36 @@
   @section('js')
   <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
   <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="/js/app.utils.js"></script>
   <script>
-  $('#datetimepicker1').datetimepicker();
+  $(document).ready(function() {
+      $('#datetimepicker1').datetimepicker({
+        defaultDate: new Date()
+      });
+      var params = {
+        callback : handlerDelete
+      };
+      Util.RequestGET(params,"/api/v1/team");
+
+      function handlerDelete(response){
+        if (!response.error){
+          var data = response.resultado;
+
+          loadCombo("#local_team", data);
+          loadCombo("#visitor_team", data);
+        }
+      }
+
+      function loadCombo(selector, data){
+        var d = document;
+        $.each(data, function( index, value ) {
+          var option = d.createElement("option");
+          option.value = value.id;
+          option.text = value.name;
+          $(selector).append(option);
+        });
+      }
+
+  });
   </script>
   @endsection

@@ -46,9 +46,12 @@
 
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
         <!-- Left Side Of Navbar -->
-        <!-- <ul class="nav navbar-nav">
-          <li><a href="{{ url('/home') }}">Home</a></li>
-        </ul> -->
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url('/home') }}">HOME</a></li>
+          <li><a href="{{ url('/teams') }}">TEAMS</a></li>
+          <li><a href="{{ url('/matches') }}">MATCHES</a></li>
+          <li><a href="{{ url('/leagues') }}">LEAGUES</a></li>
+        </ul>
 
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">

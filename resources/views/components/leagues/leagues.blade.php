@@ -1,18 +1,16 @@
 @extends('layouts.app')
 
 @section('css')
-
-<!--Bootstrap Table [ OPTIONAL ]-->
-
 <link href="/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
 @endsection
 
 @section('content')
-
 <div class="container">
   <div class="row">
+
     <div class="col-md-10 col-md-offset-1">
+
+
       @if (isset($error))
       <div class="alert alert-success alert-dismissible fade in" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -24,46 +22,40 @@
 
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <div class="text-center">TEAMS</div>
-          <div class="text-right"> <a href="/team" class="btn btn-primary text-right"><i class="fa fa-plus-circle"></i></a></div>
+          <div class="text-center">LEAGUES</div>
+          <div class="text-right"> <a href="/league" class="btn btn-primary text-right"><i class="fa fa-plus-circle"></i></a></div>
         </div>
 
-        <!-- <div class="panel panel-default"> -->
-          <table id="teamTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Logo</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-                <th>#</th>
-                <th>Logo</th>
-                <th>Nombre</th>
-                <th>Actions</th>
-              </tr>
-            </tfoot>
-            <tbody>
-              @foreach ($teams as $team)
-              <tr>
-                <th scope="row">{{ $team->id }}</th>
-                <td> <img src="pambolazo/teams/{{ $team->logo }}" width="30px" /> </td>
-                <td>{{ $team->name }}</td>
-                <td>
-                  <div class="btn-group" role="group" aria-label="...">
-                    <a href="/team/{{ $team->id }}" class="btn btn-default" ><i class="fa fa-pencil"></i></a>
-                    <button type="button" class="btn btn-default" id="buttomDelete" data="{{ $team->id }}"><i class="fa fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-
-        <!-- </div> -->
+        <table id="teamTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Country</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            @foreach ($leagues as $league)
+            <tr>
+              <th scope="row">{{ $league->id }}</th>
+              <td>{{ $league->name }}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="...">
+                  <a href="/league/{{ $league->id }}" class="btn btn-default" ><i class="fa fa-pencil"></i></a>
+                  <button type="button" class="btn btn-default" id="buttomDelete" data="{{ $league->id }}"><i class="fa fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
 
       </div>
     </div>
@@ -77,7 +69,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Delete Team</h4>
+        <h4 class="modal-title" id="myModalLabel">Delete</h4>
       </div>
       <div class="modal-body">
         <div id="error" class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -90,19 +82,15 @@
       </div>
       <div class="modal-footer">
         {!! csrf_field() !!}
-        <button type="button" class="btn btn-default" id="deleteTeam" data="">Yes</button>
+        <button type="button" class="btn btn-default" id="delete" data="">Yes</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
       </div>
     </div>
   </div>
 </div>
-
-
 @endsection
 
-
 @section('js')
-<!--DataTables [ OPTIONAL ]-->
 <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="/js/app.utils.js"></script>
@@ -114,15 +102,15 @@ $(document).ready(function() {
   $(document).on("click","#buttomDelete", function(){
     $('#modalDelete').modal('show');
     var idTeam = $(this).attr("data");
-    $("#deleteTeam").attr("data", idTeam);
+    $("#delete").attr("data", idTeam);
   });
 
-  $(document).on("click","#deleteTeam", function(){
-    var idTeam = $(this).attr("data");
+  $(document).on("click","#delete", function(){
+    var id = $(this).attr("data");
     var params = {
       callback : handlerDeleteTeam
     };
-    Util.RequestDELETE(params,"/team/"+idTeam);
+    Util.RequestDELETE(params,"/match/"+id);
     console.log("DELETE : " + idTeam);
   });
 
@@ -144,8 +132,6 @@ $(document).ready(function() {
     }
     console.log(response);
   }
-
-} );
+});
 </script>
-
 @endsection

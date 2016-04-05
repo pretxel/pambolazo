@@ -65,17 +65,17 @@ class TeamController extends Controller
 
     if(!$request->hasFile('image'))
     {
-      return view('components.teams.team')->with('errors', 'Image file is required');
+      return view('components.teams.team')->with('error', 'Image file is required')->with('method','POST');
     }
 
     if (!$request->file('image')->isValid())
     {
-      return view('components.teams.team')->with('errors', 'Invalid file');
+      return view('components.teams.team')->with('error', 'Invalid file')->with('method','POST');
     }
 
     if(!in_array($request->file('image')->getMimeType() , $this->imagesPermitted))
     {
-      return view('components.teams.team')->with('errors', 'invalid_file_format');
+      return view('components.teams.team')->with('error', 'invalid_file_format')->with('method','POST');
     }
 
     $image = $request->file('image');
@@ -93,11 +93,11 @@ class TeamController extends Controller
       // Scale image and save it
       $rsr_org = $this->imageProcess->imageCreateFromAny($filenameFinal);
       $this->imageProcess->scaleAndSaveImage($filenameFinal, $rsr_org);
-      return Redirect::to('components.teams.teams')->with('errors', 'Se agrego equipo')->with('teams', $teams);
+      return Redirect::to('teams')->with('error', 'Se agrego equipo')->with('teams', $teams);
     }
     else
     {
-      return view('components.teams.team')->with('errors', 'Server error');
+      return view('components.teams.team')->with('error', 'Server error')->with('method','POST');
     }
 
   }
@@ -107,7 +107,7 @@ class TeamController extends Controller
     $data = Input::all();
     // Log:info($data);
     $teams = $this->teamService->update($data, $id);
-    return Redirect::to('components.teams.teams')->with('errors', 'Se modifico equipo')->with('teams', $teams);
+    return Redirect::to('teams')->with('error', 'Se modifico equipo')->with('teams', $teams);
   }
 
   public function deleteTeam(Request $request, $id){

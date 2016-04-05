@@ -17,25 +17,19 @@
 
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <div class="text-center">TEAM</div>
+          <div class="text-center">LEAGUE</div>
         </div>
         <div class="panel-body">
-          @if (isset($team))
-          <form role="form" method="{{$method}}" action="{{ url('/teamUpt/'.$team->id) }}" enctype="multipart/form-data">
+          @if (isset($league))
+          <form role="form" method="{{$method}}" action="{{ url('/leagueUpt/'.$league->id) }}" >
             @else
-            <form role="form" method="{{$method}}" action="{{ url('/team') }}" enctype="multipart/form-data">
+            <form role="form" method="{{$method}}" action="{{ url('/league') }}" >
               @endif
               {!! csrf_field() !!}
               <div class="form-group">
                 <label for="exampleInputEmail1">Name</label>
-                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Name" value="{{ $team->name or '' }}">
+                <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Name" value="{{ $league->name or '' }}">
               </div>
-              @if (!isset($team))
-              <div class="form-group">
-                <label for="exampleInputFile">Image</label>
-                <input type="file" name="image" id="exampleInputFile" value="">
-              </div>
-              @endif
               <button type="submit" class="btn btn-primary btn-lg btn-block">Save</button>
             </form>
           </div>

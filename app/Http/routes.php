@@ -59,6 +59,8 @@ Route::group(['middleware' => 'web'], function () {
 
     require __DIR__.'/routes-match.php';
 
+    require __DIR__.'/routes-league.php';
+
 
 });
 
@@ -68,4 +70,6 @@ Route::group(['prefix' => 'api/v1'], function () {
   Route::resource('team', 'Api\TeamController');
 
   Route::resource('match', 'Api\MatchController');
+
+  Route::resource('league', 'Api\LeagueController');
 });

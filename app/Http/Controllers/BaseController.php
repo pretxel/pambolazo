@@ -35,7 +35,7 @@ class BaseController extends Controller
   public function store(Request $request)
   {
     $data = Input::all();
-    
+
     $response = $this->service->save($data);
 
     if ($response instanceof Model) {
@@ -58,7 +58,7 @@ class BaseController extends Controller
 
     $data = Input::all();
 
-    $response = $this->service->update($data);
+    $response = $this->service->update($data, $id);
 
     if ($response instanceof Model) {
 

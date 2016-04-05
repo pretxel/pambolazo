@@ -48,7 +48,7 @@ class MatchController extends Controller
 
   public function save_match(Request $request)
   {
-    
+
     if ($this->matchController->store($request)) {
       $matches = $this->matchService->getAll();
       return Redirect::to('matches')->with('errors', 'It has added')->with('matches', $matches);
@@ -66,7 +66,7 @@ class MatchController extends Controller
 
 
   public function deleteMatch(Request $request, $id){
-    return $this->$matchService->delete($request, $id);
+    return $this->matchController->destroy($request, $id);
   }
 
 }
